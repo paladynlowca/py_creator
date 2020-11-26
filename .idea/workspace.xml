@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/element.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,18 +191,34 @@
       <workItem from="1605306001754" duration="24668000" />
       <workItem from="1605635589448" duration="7776000" />
       <workItem from="1605884694436" duration="13026000" />
-      <workItem from="1606211201540" duration="25061000" />
+      <workItem from="1606211201540" duration="25832000" />
     </task>
+    <task id="LOCAL-00001" summary="I don't know, what I do.">
+      <created>1606386577755</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606386577755</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="I don't know, what I do." />
+    <option name="LAST_COMMIT_MESSAGE" value="I don't know, what I do." />
   </component>
   <component name="WindowStateProjectService">
     <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser" timestamp="1606222253946">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1606222253946" />
+    <state x="417" y="23" key="CommitChangelistDialog2" timestamp="1606386574073">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="417" y="23" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1606386574073" />
     <state width="1556" height="186" key="GridCell.Tab.0.bottom" timestamp="1606380195513">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

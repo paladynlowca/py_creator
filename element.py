@@ -1,7 +1,9 @@
 from abc import abstractmethod
-from typing import Tuple, Union, Set
+from copy import copy
+from typing import Tuple, Union, Set, List
 
 from log import log
+from constans import *
 
 
 class Code:
@@ -100,4 +102,38 @@ class Element:
     @property
     def relations(self):
         return self._relations
+    pass
+
+
+class ConditionUse:
+    def __init__(self):
+        self._conditions: List[Code] = list()
+        pass
+
+    @property
+    def conditions(self):
+        return copy(self._conditions)
+
+    def add_condition(self, _code_: Code):
+        if _code_.type == CONDITION and _code_ not in self._conditions:
+            self._conditions.append(_code_)
+            return True
+        return False
+
+    def del_condition(self):
+        pass
+
+    def resort_conditions(self, _conditions_: List[Code]):
+        if len(self._conditions) == len(_conditions_):
+            return False
+        new_list = list()
+        for condition in _conditions_:
+            if condition in self._conditions:
+                new_list.append(condition)
+                pass
+            else:
+                return False
+            pass
+        self._conditions = new_list
+        return True
     pass
