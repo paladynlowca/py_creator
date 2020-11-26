@@ -1,14 +1,17 @@
 from typing import Dict, Optional, Union, Any
 
-from actions import Action
 from constans import *
+from data_frame import SceneFrame
 from element import Code
 from elements import Elements, TYPES
 from exceptions import TypeCollision
-from data_frame import SceneFrame
 
 
 class Game:
+    """
+    Game engine class
+    """
+
     def __init__(self):
         # List of all game elements (scenes, actions, ets).
         self._elements: Union[Dict[Any, TYPES], Elements] = Elements()
@@ -22,7 +25,7 @@ class Game:
     def create_element(self, _code_: Code) -> bool:
         """
         Creating game elements. If element with this code exist, won't change anything.
-        :param _code_:
+        :param _code_: Element to create
         :type _code_: Code
         :return: Success of operation.
         :rtype: bool
@@ -132,57 +135,54 @@ class Game:
             raise TypeCollision(_code_.code, OPTION, type_)
         return True
 
-    def check_trigger(self, _trigger_: str, _return_: str):
-        """
-        Najpewniej do przebudwoania.
-        Checking all trigger conditions.
-        :param _trigger_:
-        :type _trigger_:
-        :param _return_:
-        :type _return_:
-        :return:
-        :rtype:
-        """
-        trigger = self[Code(_trigger_, TRIGGER)]
-        for condition in trigger.conditions:
-            if not condition:
-                return None
-            pass
-        return trigger.action if _return_ == ACTION else trigger.option
-
     def close(self):
+        """
+        Preparing to safe game exit.
+        """
         del self._elements
         pass
 
     @property
-    def scene(self):
+    def scene(self) -> SceneFrame:
+        """
+        Preparing scene data for user interface handler.
+        :return: Current scene data.
+        :rtype: SceneFrame
+        """
         scene = self[self._current_scene]
         frame = SceneFrame(_title_=scene.title, _describe_=scene.describe, _img_=scene.image)
-        for trigger in self[self._current_scene].triggers:
-            option = self[self.check_trigger(trigger.code, OPTION)]
+        for code in self[self._current_scene].options:
+            option = self[code]
             if option:
-                print(scene)
-                output.append((option.text, option.code))
+                frame.add_option(code, option.text)
                 pass
             pass
-        return self[self._current_scene].title, self[self._current_scene].describe
-
-    @property
-    def options(self):
-        output = []
-        return output
+        return frame
 
     def execute(self, _option_: Code):
-        for trigger in self[_option_].triggers:
-            action: Action = self[self[trigger].action]
-            if action.action_type == TARGET_ACTION:
-                scene = self[action.code].scene
-                self.change_scene(scene.code)
+        """
+        Executing all scene actions.
+        :param _option_: Option choose by player.
+        :type _option_: Code
+        """
+        for code in self[_option_].actions:
+            action = self[code]
+            if action:
+                if action.action_type == TARGET_ACTION:
+                    self.change_scene(action.scene)
+                    pass
                 pass
             pass
         pass
 
     def __getitem__(self, _key_: Union[Code, str]) -> TYPES:
+        """
+        Searching elements dictionary.
+        :param _key_: Element code.
+        :type _key_: Code or str
+        :return: Element assigned to key
+        :rtype: TYPES
+        """
         return self._elements[_key_]
 
     pass
