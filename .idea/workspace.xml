@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="" />
+    <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +19,14 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/DragonPalm" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="C:\Users\User\Dysk Google\programowanie\Python\py_creator\.idea" />
+      </set>
+    </option>
   </component>
   <component name="ProjectId" id="1dg0NFjENbLf41c3MjcYHN8HsP2" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -182,7 +193,7 @@
       <workItem from="1605306001754" duration="24668000" />
       <workItem from="1605635589448" duration="7776000" />
       <workItem from="1605884694436" duration="13026000" />
-      <workItem from="1606211201540" duration="23879000" />
+      <workItem from="1606211201540" duration="25061000" />
     </task>
     <servers />
   </component>
