@@ -1,0 +1,6 @@
+SCENE = 'scene'
+TRIGGER = 'trigger'
+ACTION = 'action'
+OPTION = 'option'
+CONDITION = 'condition'
+TARGET_ACTION = 'target_action'
