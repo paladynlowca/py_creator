@@ -114,14 +114,17 @@ class ConditionUse:
     def conditions(self):
         return copy(self._conditions)
 
-    def add_condition(self, _code_: Code):
+    def add_condition(self, _code_: Code) -> bool:
         if _code_.type == CONDITION and _code_ not in self._conditions:
             self._conditions.append(_code_)
             return True
         return False
 
-    def del_condition(self):
-        pass
+    def del_condition(self, _code_: Code) -> bool:
+        if _code_ in self._conditions:
+            self._conditions.remove(_code_)
+            return True
+        return False
 
     def resort_conditions(self, _conditions_: List[Code]):
         if len(self._conditions) == len(_conditions_):

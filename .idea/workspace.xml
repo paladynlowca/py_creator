@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/element.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -191,7 +192,7 @@
       <workItem from="1605306001754" duration="24668000" />
       <workItem from="1605635589448" duration="7776000" />
       <workItem from="1605884694436" duration="13026000" />
-      <workItem from="1606211201540" duration="25832000" />
+      <workItem from="1606211201540" duration="26198000" />
     </task>
     <task id="LOCAL-00001" summary="I don't know, what I do.">
       <created>1606386577755</created>
@@ -200,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606386577755</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="I don't know, what I do.">
+      <created>1606387311911</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606387311911</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

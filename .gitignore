@@ -1,4 +1,5 @@
-cipher
-venv
-.idea
-__pycache__
+/cipher/
+/venv/
+/.idea/
+/__pycache__
+/test.py
