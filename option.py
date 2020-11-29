@@ -2,10 +2,10 @@ from copy import copy
 from typing import List, Optional
 
 from constans import *
-from element import Element, Code, ConditionUsing
+from element import Code, ConditionUsing
 
 
-class Option(Element, ConditionUsing):
+class Option(ConditionUsing):
     """
     Scene option.
     """
@@ -54,9 +54,7 @@ class Option(Element, ConditionUsing):
             if _code_.type == ACTION:
                 return self._list_append(_code_, self._actions)
             pass
-        else:
-            return super().add_relation(_code_, _passive_)
-        return True
+        return super().add_relation(_code_, _passive_)
 
     def del_relation(self, _code_: Code, _passive_=True) -> bool:
         """
@@ -72,9 +70,7 @@ class Option(Element, ConditionUsing):
             if _code_.type == ACTION:
                 return self._list_remove(_code_, self._actions)
             pass
-        else:
-            return super().del_relation(_code_, _passive_)
-        return True
+        return super().del_relation(_code_, _passive_)
 
     def build(self, _text_: Optional[str] = None):
         """

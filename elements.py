@@ -1,8 +1,8 @@
 from copy import copy
 from typing import Optional, Dict, Union
 
-from actions import Action, TargetAction
-from condition import Condition
+from actions import Action, TargetAction, VariableAction
+from condition import Condition, BoolCondition, IntCondition
 from constans import *
 from element import Code
 from exceptions import *
@@ -11,7 +11,7 @@ from scene import Scene
 from variable import BoolVariable, IntVariable
 
 # Short type hint for any elements types.
-TYPES = Union[Scene, Condition, Action, TargetAction, Option, BoolVariable, IntVariable]
+TYPES = Union[Scene, Condition, Action, TargetAction, Option, BoolVariable, IntVariable, VariableAction]
 
 
 class Elements(dict):
@@ -22,7 +22,9 @@ class Elements(dict):
     def __init__(self):
         super().__init__()
         self._types: Dict[str, type] = {SCENE: Scene, CONDITION: Condition, TARGET_ACTION: TargetAction, OPTION: Option,
-                                        BOOL_VARIABLE: BoolVariable, INT_VARIABLE: IntVariable}
+                                        BOOL_VARIABLE: BoolVariable, INT_VARIABLE: IntVariable,
+                                        BOOL_CONDITION: BoolCondition, INT_CONDITION: IntCondition,
+                                        VARIABLE_ACTION: VariableAction}
         pass
 
     def add_relations(self, _active_: Code, _passive_: Code) -> bool:

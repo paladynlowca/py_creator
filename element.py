@@ -51,15 +51,12 @@ class Element:
     """
     Static set of all existing in game elements codes.
     """
-    __id_count = 1
 
     def __init__(self, _code_: str):
         """
         :param _code_: Element str code.
         :type _code_: str
         """
-        self._id = Element.__id_count
-        Element.__id_count += 1
         self._relations: Set[Code] = set()
         self._relations_passive: Set[Code] = set()
         self._type: Optional[str] = None
@@ -76,13 +73,6 @@ class Element:
                 relations += f'[{relation}]'
             raise ExistingRelationsError(self._code, self._relations)
         Element._codes.remove(self._code)
-
-    @property
-    def id(self):
-        """
-        Id property.
-        """
-        return self._id
 
     @property
     def type(self):
@@ -245,26 +235,28 @@ class Element:
 
 
 # Unimplemented
-class ConditionUsing:
-    def __init__(self):
+class ConditionUsing(Element):
+    def __init__(self, _code_: str):
+        super().__init__(_code_)
         self._conditions: List[Code] = list()
-        pass
 
     @property
     def conditions(self) -> List[Code]:
         return copy(self._conditions)
 
-    def add_condition(self, _code_: Code) -> bool:
-        if _code_.type == CONDITION and _code_ not in self._conditions:
-            self._conditions.append(_code_)
-            return True
-        return False
+    def add_relation(self, _code_: Code, _passive_=True) -> bool:
+        if not _passive_:
+            if _code_.type == CONDITION:
+                return self._list_append(_code_, self._conditions)
+            pass
+        return super().add_relation(_code_, _passive_)
 
-    def del_condition(self, _code_: Code) -> bool:
-        if _code_ in self._conditions:
-            self._conditions.remove(_code_)
-            return True
-        return False
+    def del_relation(self, _code_: Code, _passive_=True) -> bool:
+        if not _passive_:
+            if _code_.type == CONDITION:
+                return self._list_remove(_code_, self._conditions)
+            pass
+        return super().del_relation(_code_, _passive_)
 
     def sort_conditions(self, _conditions_: List[Code]) -> bool:
         if len(self._conditions) == len(_conditions_):

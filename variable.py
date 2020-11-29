@@ -13,7 +13,7 @@ class Variable(Element):
         self._type = VARIABLE
         self._value_type: Optional[type] = None
         self._value_type_str: Optional[str] = None
-        self._relations_passive.add(CONDITION)
+        self._relations_passive.update({CONDITION, ACTION})
         self._value = None
         pass
 

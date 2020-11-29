@@ -28,9 +28,20 @@ if __name__ == '__main__':
     game.create_element(Code(action3.code, TARGET_ACTION))
     game.create_element(Code(action4.code, TARGET_ACTION))
 
+    action_variable = Code('variable_change_bool', ACTION)
+    game.build_variable_action(Code(action_variable.code, VARIABLE_ACTION), VARIABLE_INVERSE)
+
     var_int, var_bool = Code('variable1', VARIABLE), Code('variable2', VARIABLE)
     game.create_element(Code(var_int.code, INT_VARIABLE))
     game.create_element(Code(var_bool.code, BOOL_VARIABLE))
+
+    con_int, con_bool = Code('condition1', CONDITION), Code('condition2', CONDITION)
+    game.build_condition(Code(con_int.code, INT_CONDITION), MORE, 2)
+    game.build_condition(Code(con_bool.code, BOOL_CONDITION), EQUAL, True)
+    a = game[var_int]
+    a.value = 3
+    a = game[var_bool]
+    a.value = False
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -38,11 +49,14 @@ if __name__ == '__main__':
     # Korytarz -> ganek
     game.add_relation(scene1, option1)
     game.add_relation(option1, action1)
+    game.add_relation(option1, con_bool)
     game.add_relation(action1, scene2)
 
     # Korytarz -> kuchnia
     game.add_relation(scene1, option2)
     game.add_relation(option2, action2)
+    game.add_relation(option2, con_int)
+    game.add_relation(option2, action_variable)
     game.add_relation(action2, scene4)
 
     # Ganek -> korytarz
@@ -58,7 +72,13 @@ if __name__ == '__main__':
     game.add_relation(option4, action4)
     game.add_relation(action4, scene3)
 
-    game.change_scene(scene3)
+    # zmienne
+
+    game.add_relation(con_int, var_int)
+    game.add_relation(con_bool, var_bool)
+    game.add_relation(action_variable, var_bool)
+
+    game.change_scene(scene1)
 
     # ------------------------------------------------------------------------------------------------------------------
 

@@ -2,18 +2,18 @@ from abc import abstractmethod
 from typing import Optional
 
 from constans import *
-from element import Element, Code
+from element import Code, ConditionUsing
 from exceptions import *
 
 
-# TODO: Add "on change".
-class Condition(Element):
+class Condition(ConditionUsing):
 
     def __init__(self, _code_: str):
         super().__init__(_code_)
         self._type: str = CONDITION
         self._condition_type: Optional[type] = None
         self._condition_type_str: Optional[str] = None
+        self._relations_passive.update({ACTION, VARIABLE, OPTION, Condition})
 
         self._variable: Optional[Code] = None
 
@@ -42,6 +42,13 @@ class Condition(Element):
     def variable(self):
         return self._variable
 
+    @variable.setter
+    def variable(self, _value_: Code):
+        if _value_.type == VARIABLE:
+            self._variable = _value_
+            pass
+        pass
+
     @property
     def test_type(self):
         return self._test_type
@@ -59,18 +66,14 @@ class Condition(Element):
             if _code_.type == VARIABLE:
                 return self._property_set(_code_, VARIABLE)
             pass
-        else:
-            return super().add_relation(_code_, _passive_)
-        return True
+        return super().add_relation(_code_, _passive_)
 
     def del_relation(self, _code_: Code, _passive_=True) -> bool:
         if not _passive_:
             if _code_.type == VARIABLE:
                 return self._property_remove(_code_, VARIABLE)
             pass
-        else:
-            return super().del_relation(_code_, _passive_)
-        return True
+        return super().del_relation(_code_, _passive_)
 
     def _retype(self, _value_):
         try:
@@ -82,14 +85,14 @@ class Condition(Element):
     def _set_ready(self):
         self._ready = True if None in (self.expected, self.test_type, self._variable) else False
 
-    def build(self, _type_: str = None, _variable_: Code = None, _expected_: int = None):
+    def build(self, _type_: str = None, _expected_: int = None, _variable_: Code = None):
         if _type_ is not None:
             self.test_type = _type_
             pass
         if _expected_ is not None:
             self.expected = _expected_
         if _variable_ is not None:
-            self.expected = _expected_
+            self.variable = _variable_
             pass
         pass
 

@@ -1,5 +1,6 @@
 from typing import Dict, Optional, Union, Any
 
+from condition import Condition
 from constans import *
 from data_frame import SceneFrame
 from element import Code
@@ -21,6 +22,23 @@ class Game:
         # Current active scene.
         self._current_scene: Optional[Code] = None
         pass
+
+    @property
+    def scene(self) -> SceneFrame:
+        """
+        Preparing scene data for user interface handler.
+        :return: Current scene data.
+        :rtype: SceneFrame
+        """
+        scene = self[self._current_scene]
+        frame = SceneFrame(_title_=scene.title, _describe_=scene.describe, _img_=scene.image)
+        for code in self[self._current_scene].options:
+            option = self[code]
+            if self.check_conditions(code):
+                frame.add_option(code, option.text)
+                pass
+            pass
+        return frame
 
     def create_element(self, _code_: Code) -> bool:
         """
@@ -96,17 +114,13 @@ class Game:
         # Create scene if don't exist.
         if type_ is None and _code_.type == SCENE:
             self._elements.add(_code_)
-            type_ = SCENE
+            type_ = self._elements.check_type(_code_.code)
             pass
-        else:
+        if _code_.type != SCENE or type_ != SCENE:
             raise TypeCollisionError(_code_.code, SCENE, type_)
         # Update if declared type and found type is scene type.
-        if _code_.type == type_ == SCENE:
-            _image_ = _image_ if self._allow_graphics else None
-            self[_code_].build(_title_, _description_, _image_)
-            pass
-        else:
-            raise TypeCollisionError(_code_.code, SCENE, type_)
+        _image_ = _image_ if self._allow_graphics else None
+        self[_code_].build(_title_, _description_, _image_)
         return True
 
     def build_option(self, _code_: Code, _text_: Optional[str] = None) -> bool:
@@ -123,16 +137,38 @@ class Game:
         # Create option if don't exist.
         if type_ is None and _code_.type == OPTION:
             self._elements.add(_code_)
-            type_ = OPTION
+            type_ = self._elements.check_type(_code_.code)
             pass
-        else:
+        if _code_.type != OPTION or type_ != OPTION:
             raise TypeCollisionError(_code_.code, OPTION, type_)
         # Update if declared type and found type is option type.
-        if _code_.type == type_ == OPTION:
-            self[_code_].build(_text_)
+        self[_code_].build(_text_)
+        return True
+
+    def build_condition(self, _code_: Code, _type_: str = None, _expected_: int = None):
+        type_ = self._elements.check_type(_code_.code)
+        if type_ is None and _code_.type in CONDITION_LIST:
+            self._elements.add(_code_)
+            type_ = self._elements.check_type(_code_.code)
             pass
-        else:
-            raise TypeCollisionError(_code_.code, OPTION, type_)
+        if type_ != CONDITION:
+            raise TypeCollisionError(_code_.code, CONDITION, type_)
+        if type_ == CONDITION:
+            self[Code(_code_.code, CONDITION)].build(_type_, _expected_)
+            pass
+        return True
+
+    def build_variable_action(self, _code_: Code, _change_type_: str = None, _change_value_: Union[int, bool] = None):
+        type_ = self._elements.check_type(_code_.code)
+        if type_ is None and _code_.type is VARIABLE_ACTION:
+            self._elements.add(_code_)
+            type_ = self._elements.check_type(_code_.code)
+            pass
+        if type_ != ACTION:
+            raise TypeCollisionError(_code_.code, ACTION, type_)
+        if type_ == ACTION:
+            self[Code(_code_.code, ACTION)].build(_change_type_, _change_value_)
+            pass
         return True
 
     def close(self):
@@ -142,38 +178,48 @@ class Game:
         del self._elements
         pass
 
-    @property
-    def scene(self) -> SceneFrame:
-        """
-        Preparing scene data for user interface handler.
-        :return: Current scene data.
-        :rtype: SceneFrame
-        """
-        scene = self[self._current_scene]
-        frame = SceneFrame(_title_=scene.title, _describe_=scene.describe, _img_=scene.image)
-        for code in self[self._current_scene].options:
-            option = self[code]
-            if option:
-                frame.add_option(code, option.text)
-                pass
-            pass
-        return frame
-
     def execute(self, _option_: Code):
         """
         Executing all scene actions.
         :param _option_: Option choose by player.
         :type _option_: Code
         """
-        for code in self[_option_].actions:
-            action = self[code]
-            if action:
-                if action.action_type == TARGET_ACTION:
-                    self.change_scene(action.scene)
+        if _option_.type is OPTION and _option_ in self.scene.options and self.check_conditions(_option_):
+            for code in self[_option_].actions:
+                action = self[code]
+                if self.check_conditions(code):
+                    if action.action_type == TARGET_ACTION:
+                        self.change_scene(action.scene)
+                        pass
+                    elif action.action_type == VARIABLE_ACTION:
+                        if action.change_type == VARIABLE_INCREASE:
+                            self[action.variable].increase(action.change_value)
+                            pass
+                        elif action.change_type == VARIABLE_DECREASE:
+                            self[action.variable].decrease(action.change_value)
+                            pass
+                        elif action.change_type == VARIABLE_SET:
+                            self[action.variable].value = action.change_value
+                            pass
+                        elif action.change_type == VARIABLE_INVERSE:
+                            self[action.variable].invert()
+                            pass
+                        pass
                     pass
                 pass
             pass
         pass
+
+    def check_conditions(self, _condition_: Code):
+        value = True
+        for condition in self[_condition_].conditions:
+            if condition.type is not CONDITION:
+                raise TypeCollisionError(condition.code, CONDITION, _condition_.type)
+            condition_el: Condition = self[condition]
+            variable = self[condition_el.variable]
+            value = value and condition_el.test(variable.value)
+            pass
+        return value
 
     def __getitem__(self, _key_: Union[Code, str]) -> TYPES:
         """
