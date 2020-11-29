@@ -6,28 +6,31 @@ from game import Game
 if __name__ == '__main__':
     game = Game()
     # Tworzenie wszystkich elementów potrzebnych do działania scenariusza.
-    scene1, scene2, scene3, scene4 = Code('s1', SCENE), Code('s2', SCENE), Code('s3', SCENE), Code('s4', SCENE)
+    scene1, scene2 = Code('s1', SCENE), Code('s2', SCENE)
+    scene3, scene4 = Code('s3', SCENE), Code('s4', SCENE)
     game.build_scene(scene1, _title_='Korytarz', _description_='Jesteś w dość krótkim korytarzu.')
     game.build_scene(scene2, _title_='Ganek', _description_='To zdecydowanie jest ganek, możesz wyjść na zewnątrz.')
     game.build_scene(scene3, _title_='Ulica',
                      _description_='Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.')
     game.build_scene(scene4, _title_='Kuchnia.', _description_='Wszedłeś do kuchni. Nie ma tu nic ciekawego.')
 
-    option1, option2, option3, option4 = Code('option1', OPTION), Code('option2', OPTION), Code('option3',
-                                                                                                OPTION), Code('option4',
-                                                                                                              OPTION)
+    option1, option2 = Code('option1', OPTION), Code('option2', OPTION),
+    option3, option4 = Code('option3', OPTION), Code('option4', OPTION)
     game.build_option(option1, 'Wejdź w drzwi po prawej.')
     game.build_option(option2, 'Wejdź w drzwi po lewej.')
     game.build_option(option3, 'Wróć na korytarz.')
     game.build_option(option4, 'Wyjdź na zewnątrz.')
 
-    action1, action2, action3, action4 = Code('target1', ACTION), Code('target2', ACTION), Code('target3',
-                                                                                                ACTION), Code('target4',
-                                                                                                              ACTION)
+    action1, action2 = Code('target1', ACTION), Code('target2', ACTION),
+    action3, action4 = Code('target3', ACTION), Code('target4', ACTION)
     game.create_element(Code(action1.code, TARGET_ACTION))
     game.create_element(Code(action2.code, TARGET_ACTION))
     game.create_element(Code(action3.code, TARGET_ACTION))
     game.create_element(Code(action4.code, TARGET_ACTION))
+
+    var_int, var_bool = Code('variable1', VARIABLE), Code('variable2', VARIABLE)
+    game.create_element(Code(var_int.code, INT_VARIABLE))
+    game.create_element(Code(var_bool.code, BOOL_VARIABLE))
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -55,7 +58,7 @@ if __name__ == '__main__':
     game.add_relation(option4, action4)
     game.add_relation(action4, scene3)
 
-    game.change_scene(scene1)
+    game.change_scene(scene3)
 
     # ------------------------------------------------------------------------------------------------------------------
 

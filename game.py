@@ -4,7 +4,7 @@ from constans import *
 from data_frame import SceneFrame
 from element import Code
 from elements import Elements, TYPES
-from exceptions import TypeCollision
+from exceptions import TypeCollisionError
 
 
 class Game:
@@ -99,14 +99,14 @@ class Game:
             type_ = SCENE
             pass
         else:
-            raise TypeCollision(_code_.code, SCENE, type_)
+            raise TypeCollisionError(_code_.code, SCENE, type_)
         # Update if declared type and found type is scene type.
         if _code_.type == type_ == SCENE:
             _image_ = _image_ if self._allow_graphics else None
             self[_code_].build(_title_, _description_, _image_)
             pass
         else:
-            raise TypeCollision(_code_.code, SCENE, type_)
+            raise TypeCollisionError(_code_.code, SCENE, type_)
         return True
 
     def build_option(self, _code_: Code, _text_: Optional[str] = None) -> bool:
@@ -126,13 +126,13 @@ class Game:
             type_ = OPTION
             pass
         else:
-            raise TypeCollision(_code_.code, OPTION, type_)
+            raise TypeCollisionError(_code_.code, OPTION, type_)
         # Update if declared type and found type is option type.
         if _code_.type == type_ == OPTION:
             self[_code_].build(_text_)
             pass
         else:
-            raise TypeCollision(_code_.code, OPTION, type_)
+            raise TypeCollisionError(_code_.code, OPTION, type_)
         return True
 
     def close(self):

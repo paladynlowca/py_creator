@@ -1,4 +1,4 @@
-class TypeCollision(Exception):
+class TypeCollisionError(Exception):
     """"
     Raise for wrong type match.
     """
@@ -24,7 +24,7 @@ class TypeCollision(Exception):
     pass
 
 
-class ExistingRelations(Exception):
+class ExistingRelationsError(Exception):
     """
     Raise while deleting element with existing relations.
     """
@@ -43,5 +43,18 @@ class ExistingRelations(Exception):
 
     def __str__(self):
         return f'Deleting element >{self._code}< relations with existing relations >{self._relations}<.'
+
+    pass
+
+
+class OutOfRangeError(Exception):
+    def __init__(self, _value_, _min_, _max_):
+        self._value = _value_
+        self._min = '- infinity' if _min_ is None else _min_
+        self._max = 'infinity' if _max_ is None else _max_
+        pass
+
+    def __str__(self):
+        return f'Value >{self._value}< is not between >{self._min}< and >{self._max}<'
 
     pass

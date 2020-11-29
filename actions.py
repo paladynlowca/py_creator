@@ -17,7 +17,7 @@ class Action(Element):
         super().__init__(_code_)
         self._type = ACTION
         self._action_type: Optional[str] = None
-        self._relations_passive.add(OPTION)
+        self._relations_passive.union((OPTION, VARIABLE))
         pass
 
     @property

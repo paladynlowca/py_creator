@@ -1,6 +1,5 @@
 from copy import copy
-from copy import copy
-from typing import Set, List
+from typing import Set, List, Optional
 
 from constans import *
 from exceptions import *
@@ -31,8 +30,8 @@ class Code:
         """
         return self._type
 
-    def __eq__(self, other):
-        if type(other) is Code and self.code == other.code and self.type == other.type:
+    def __eq__(self, _other_):
+        if type(_other_) is Code and self.code == _other_.code and self.type == _other_.type:
             return True
         return False
 
@@ -40,7 +39,7 @@ class Code:
         return hash(self.code + self.type)
 
     def __str__(self):
-        return f'Code [{self.code}] with type [{self.type}]'
+        return f'Code >{self.code}< with type >{self.type}<'
 
     def __repr__(self):
         return f'Code({self.code}, {self.type})'
@@ -63,7 +62,7 @@ class Element:
         Element.__id_count += 1
         self._relations: Set[Code] = set()
         self._relations_passive: Set[Code] = set()
-        self._type = None
+        self._type: Optional[str] = None
         self.code = _code_
         pass
 
@@ -75,7 +74,7 @@ class Element:
             relations = ''
             for relation in self._relations:
                 relations += f'[{relation}]'
-            raise ExistingRelations(self._code, self._relations)
+            raise ExistingRelationsError(self._code, self._relations)
         Element._codes.remove(self._code)
 
     @property

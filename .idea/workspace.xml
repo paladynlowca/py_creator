@@ -6,16 +6,11 @@
       <change beforePath="$PROJECT_DIR$/actions.py" beforeDir="false" afterPath="$PROJECT_DIR$/actions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/condition.py" beforeDir="false" afterPath="$PROJECT_DIR$/condition.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/constans.py" beforeDir="false" afterPath="$PROJECT_DIR$/constans.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_frame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/element.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/elements.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option.py" beforeDir="false" afterPath="$PROJECT_DIR$/option.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/scene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trigger.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/variable.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,7 +58,7 @@
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.test">
     <configuration name="elements" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="py_creator" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,8 +171,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
         <item itemvalue="Python.test" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.play_fair_marcin_curylo (1)" />
         <item itemvalue="Python.vernam_marcin_curylo" />
         <item itemvalue="Python.elements" />
@@ -205,7 +200,7 @@
       <workItem from="1605306001754" duration="24668000" />
       <workItem from="1605635589448" duration="7776000" />
       <workItem from="1605884694436" duration="13026000" />
-      <workItem from="1606211201540" duration="43056000" />
+      <workItem from="1606211201540" duration="64399000" />
     </task>
     <task id="LOCAL-00001" summary="I don't know, what I do.">
       <created>1606386577755</created>
@@ -228,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606387714550</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Remove Triggers from game loop.&#10;Add docstrings for all objects.&#10;Minor improvements.">
+      <created>1606415556560</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606415556560</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -246,38 +248,42 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="I don't know, what I do." />
-    <option name="LAST_COMMIT_MESSAGE" value="I don't know, what I do." />
+    <MESSAGE value="Remove Triggers from game loop.&#10;Add docstrings for all objects.&#10;Minor improvements." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Triggers from game loop.&#10;Add docstrings for all objects.&#10;Minor improvements." />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser" timestamp="1606222253946">
+    <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser" timestamp="1606600990809">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1606222253946" />
+    <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1606600990809" />
     <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606409701321">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1606409701321" />
-    <state x="417" y="23" key="CommitChangelistDialog2" timestamp="1606387712524">
+    <state x="417" y="23" key="CommitChangelistDialog2" timestamp="1606415553208">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="417" y="23" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1606387712524" />
-    <state width="1556" height="186" key="GridCell.Tab.0.bottom" timestamp="1606415422311">
+    <state x="417" y="23" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1606415553208" />
+    <state width="1556" height="186" key="GridCell.Tab.0.bottom" timestamp="1606602531544">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="186" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1606415422311" />
-    <state width="1556" height="186" key="GridCell.Tab.0.center" timestamp="1606415422311">
+    <state width="1556" height="186" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1606602531544" />
+    <state width="1556" height="186" key="GridCell.Tab.0.center" timestamp="1606602531544">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="186" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1606415422311" />
-    <state width="1556" height="186" key="GridCell.Tab.0.left" timestamp="1606415422311">
+    <state width="1556" height="186" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1606602531544" />
+    <state width="1556" height="186" key="GridCell.Tab.0.left" timestamp="1606602531543">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="186" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1606415422311" />
-    <state width="1556" height="186" key="GridCell.Tab.0.right" timestamp="1606415422311">
+    <state width="1556" height="186" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1606602531543" />
+    <state width="1556" height="186" key="GridCell.Tab.0.right" timestamp="1606602531544">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="186" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1606415422311" />
+    <state width="1556" height="186" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1606602531544" />
     <state x="301" y="61" key="SettingsEditor" timestamp="1606343593278">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -286,10 +292,10 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="497" y="28" width="606" height="804" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1605348739390" />
-    <state x="541" y="72" key="refactoring.ChangeSignatureDialog" timestamp="1605440083109">
+    <state x="541" y="72" key="refactoring.ChangeSignatureDialog" timestamp="1606429278605">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="541" y="72" key="refactoring.ChangeSignatureDialog/0.0.1600.860@0.0.1600.860" timestamp="1605440083109" />
+    <state x="541" y="72" key="refactoring.ChangeSignatureDialog/0.0.1600.860@0.0.1600.860" timestamp="1606429278605" />
     <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1605348732465">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -298,13 +304,13 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/py_creator$game.coverage" NAME="game Coverage Results" MODIFIED="1604961373807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$action.coverage" NAME="action Coverage Results" MODIFIED="1603206157749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/py_creator$main.coverage" NAME="main Coverage Results" MODIFIED="1606415422301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$main.coverage" NAME="main Coverage Results" MODIFIED="1606598484514" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$elements.coverage" NAME="elements Coverage Results" MODIFIED="1605307528082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$play_fair_marcin_curylo__1_.coverage" NAME="play_fair_marcin_curylo (1) Coverage Results" MODIFIED="1606240642517" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cipher" />
     <SUITE FILE_PATH="coverage/py_creator$Atbash_MCurylo.coverage" NAME="Atbash_MCurylo Coverage Results" MODIFIED="1604530953792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$decorators.coverage" NAME="decorators Coverage Results" MODIFIED="1604606870039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$temp.coverage" NAME="temp Coverage Results" MODIFIED="1603823054464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/py_creator$test.coverage" NAME="test Coverage Results" MODIFIED="1606400548029" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$test.coverage" NAME="test Coverage Results" MODIFIED="1606602531536" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$play_fair_marcin_curylo.coverage" NAME="play_fair_marcin_curylo Coverage Results" MODIFIED="1605030782380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$trigger.coverage" NAME="trigger Coverage Results" MODIFIED="1603914299512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$rot13_marcin_curylo.coverage" NAME="rot13_marcin_curylo Coverage Results" MODIFIED="1605030791226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

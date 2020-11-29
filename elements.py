@@ -8,9 +8,10 @@ from element import Code
 from exceptions import *
 from option import Option
 from scene import Scene
+from variable import BoolVariable, IntVariable
 
 # Short type hint for any elements types.
-TYPES = Union[Scene, Condition, Action, TargetAction, Option]
+TYPES = Union[Scene, Condition, Action, TargetAction, Option, BoolVariable, IntVariable]
 
 
 class Elements(dict):
@@ -20,8 +21,8 @@ class Elements(dict):
 
     def __init__(self):
         super().__init__()
-        self._types: Dict[str, type] = {SCENE: Scene, CONDITION: Condition, ACTION: Action,
-                                        TARGET_ACTION: TargetAction, OPTION: Option}
+        self._types: Dict[str, type] = {SCENE: Scene, CONDITION: Condition, TARGET_ACTION: TargetAction, OPTION: Option,
+                                        BOOL_VARIABLE: BoolVariable, INT_VARIABLE: IntVariable}
         pass
 
     def add_relations(self, _active_: Code, _passive_: Code) -> bool:
@@ -110,7 +111,7 @@ class Elements(dict):
             _element_ = self._types[_element_](_code_)
             pass
         else:
-            raise TypeCollision(_code_, 'any', _element_)
+            raise TypeCollisionError(_code_, 'any', _element_)
         super().__setitem__(_element_.code.code, _element_)
         pass
 
@@ -128,7 +129,7 @@ class Elements(dict):
             if element.type == _key_.type:
                 return element
             else:
-                raise TypeCollision(element.code.code, element.type, _key_.type)
+                raise TypeCollisionError(element.code.code, element.type, _key_.type)
             pass
         else:
             return super().__getitem__(_key_)
@@ -142,7 +143,7 @@ class Elements(dict):
         """
         element = self[_key_]
         if element.relations:
-            raise ExistingRelations(_key_, element.relations)
+            raise ExistingRelationsError(_key_, element.relations)
         super().__delitem__(_key_)
         pass
 
