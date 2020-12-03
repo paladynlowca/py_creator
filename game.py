@@ -94,82 +94,12 @@ class Game:
             return False
         pass
 
-    def build_scene(self, _code_: Code, _title_: Optional[str] = None, _description_: Optional[str] = None,
-                    _image_: Optional[str] = None) -> bool:
-        """
-        Building new scene element, of filling already exist with new parameters.
-        :param _code_: Scene code
-        :type _code_: Code
-        :param _title_: Scene title.
-        :type _title_: str
-        :param _description_: Scene description.
-        :type _description_: str
-        :param _image_: Scene image (only if game allows graphics).
-        :type _image_: str
-        :raises TypeCollision: Raises TypeCollision if declared type or found type isn't scene type.
-        :return: Success of operation.
-        :rtype: bool
-        """
-        type_ = self._elements.check_type(_code_.code)
-        # Create scene if don't exist.
-        if type_ is None and _code_.type == SCENE:
-            self._elements.add(_code_)
-            type_ = self._elements.check_type(_code_.code)
+    def build_element(self, _code_: Code, _precise_type_: str = None, **kwargs):
+        if self._elements.check_type(_code_.code) is None and _code_.type in ELEMENTS_LIST:
+            self._elements.add(_code_ if _precise_type_ is None else Code(_code_.code, _precise_type_))
             pass
-        if _code_.type != SCENE or type_ != SCENE:
-            raise TypeCollisionError(_code_.code, SCENE, type_)
-        # Update if declared type and found type is scene type.
-        _image_ = _image_ if self._allow_graphics else None
-        self[_code_].build(_title_, _description_, _image_)
-        return True
-
-    def build_option(self, _code_: Code, _text_: Optional[str] = None) -> bool:
-        """
-        Building new option element, of filling already exist with new parameters.
-        :param _code_: Option code.
-        :type _code_: Code
-        :param _text_: Displayed text of option.
-        :type _text_: str
-        :return: Success of operation.
-        :rtype: bool
-        """
-        type_ = self._elements.check_type(_code_.code)
-        # Create option if don't exist.
-        if type_ is None and _code_.type == OPTION:
-            self._elements.add(_code_)
-            type_ = self._elements.check_type(_code_.code)
-            pass
-        if _code_.type != OPTION or type_ != OPTION:
-            raise TypeCollisionError(_code_.code, OPTION, type_)
-        # Update if declared type and found type is option type.
-        self[_code_].build(_text_)
-        return True
-
-    def build_condition(self, _code_: Code, _type_: str = None, _expected_: int = None):
-        type_ = self._elements.check_type(_code_.code)
-        if type_ is None and _code_.type in CONDITION_LIST:
-            self._elements.add(_code_)
-            type_ = self._elements.check_type(_code_.code)
-            pass
-        if type_ != CONDITION:
-            raise TypeCollisionError(_code_.code, CONDITION, type_)
-        if type_ == CONDITION:
-            self[Code(_code_.code, CONDITION)].build(_type_, _expected_)
-            pass
-        return True
-
-    def build_variable_action(self, _code_: Code, _change_type_: str = None, _change_value_: Union[int, bool] = None):
-        type_ = self._elements.check_type(_code_.code)
-        if type_ is None and _code_.type is VARIABLE_ACTION:
-            self._elements.add(_code_)
-            type_ = self._elements.check_type(_code_.code)
-            pass
-        if type_ != ACTION:
-            raise TypeCollisionError(_code_.code, ACTION, type_)
-        if type_ == ACTION:
-            self[Code(_code_.code, ACTION)].build(_change_type_, _change_value_)
-            pass
-        return True
+        self[_code_].build(**kwargs)
+        pass
 
     def close(self):
         """
@@ -186,40 +116,60 @@ class Game:
         """
         if _option_.type is OPTION and _option_ in self.scene.options and self.check_conditions(_option_):
             for code in self[_option_].actions:
-                action = self[code]
-                if self.check_conditions(code):
-                    if action.action_type == TARGET_ACTION:
-                        self.change_scene(action.scene)
-                        pass
-                    elif action.action_type == VARIABLE_ACTION:
-                        if action.change_type == VARIABLE_INCREASE:
-                            self[action.variable].increase(action.change_value)
-                            pass
-                        elif action.change_type == VARIABLE_DECREASE:
-                            self[action.variable].decrease(action.change_value)
-                            pass
-                        elif action.change_type == VARIABLE_SET:
-                            self[action.variable].value = action.change_value
-                            pass
-                        elif action.change_type == VARIABLE_INVERSE:
-                            self[action.variable].invert()
-                            pass
-                        pass
+                self._execute_action(code)
+            pass
+        pass
+
+    def _execute_action(self, _action_: Code):
+        action = self[_action_]
+        if self.check_conditions(_action_):
+            if action.action_type == TARGET_ACTION:
+                self.change_scene(action.scene)
+                pass
+            elif action.action_type == VARIABLE_ACTION:
+                variable = self[action.variable]
+                if action.change_type == VARIABLE_INCREASE:
+                    variable.increase(action.change_value)
                     pass
+                elif action.change_type == VARIABLE_DECREASE:
+                    variable.decrease(action.change_value)
+                    pass
+                elif action.change_type == VARIABLE_SET:
+                    variable.value = action.change_value
+                    pass
+                elif action.change_type == VARIABLE_INVERSE:
+                    variable.invert()
+                    pass
+                else:
+                    return
+                for variable_action in variable.actions:
+                    self._execute_action(variable_action)
                 pass
             pass
         pass
 
-    def check_conditions(self, _condition_: Code):
+    def check_conditions(self, _parent_: Code) -> bool:
         value = True
-        for condition in self[_condition_].conditions:
-            if condition.type is not CONDITION:
-                raise TypeCollisionError(condition.code, CONDITION, _condition_.type)
-            condition_el: Condition = self[condition]
-            variable = self[condition_el.variable]
-            value = value and condition_el.test(variable.value)
-            pass
+        for condition_code in self[_parent_].conditions:
+            value = value and self._check_condition(condition_code)
         return value
+
+    def _check_condition(self, _condition_: Code) -> bool:
+        if _condition_.type is not CONDITION:
+            raise TypeCollisionError(_condition_.code, CONDITION, _condition_.type)
+        condition: Condition = self[_condition_]
+        if condition.condition_type is MULTI_CONDITION:
+            results = list()
+            for sub_condition in condition.conditions:
+                results.append(self._check_condition(sub_condition))
+                pass
+            return condition.test(results)
+            pass
+        else:
+            variable = self[condition.variable]
+            return condition.test(variable.value)
+            pass
+        pass
 
     def __getitem__(self, _key_: Union[Code, str]) -> TYPES:
         """

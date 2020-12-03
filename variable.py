@@ -9,12 +9,13 @@ from exceptions import *
 class Variable(Element):
     def __init__(self, _code_: str):
         super().__init__(_code_)
-        self._exception_on_range: bool = True
+        self._exception_on_range: bool = False
         self._type = VARIABLE
         self._value_type: Optional[type] = None
         self._value_type_str: Optional[str] = None
         self._relations_passive.update({CONDITION, ACTION})
         self._value = None
+        self._actions = set()
         pass
 
     @property
@@ -36,6 +37,18 @@ class Variable(Element):
         else:
             self._value = self._trim(value)
         pass
+
+    @property
+    def actions(self):
+        return self._actions.copy()
+
+    @property
+    def exception_on_range(self) -> bool:
+        return self._exception_on_range
+
+    @exception_on_range.setter
+    def exception_on_range(self, _value_: bool):
+        self._exception_on_range = bool(_value_)
 
     def _retype(self, _value_):
         try:
@@ -90,14 +103,6 @@ class IntVariable(Variable):
         pass
 
     @property
-    def exception_on_range(self) -> bool:
-        return self._exception_on_range
-
-    @exception_on_range.setter
-    def exception_on_range(self, _value_: bool):
-        self._exception_on_range = bool(_value_)
-
-    @property
     def default_increase(self) -> int:
         return self._default_increase
 
@@ -107,8 +112,10 @@ class IntVariable(Variable):
         if (self.min is None or self.max is None or value <= (self.max - self.min)) and value >= 0:
             self._default_increase = value
             pass
-        else:
+        elif self.exception_on_range:
             raise OutOfRangeError(value, 0, None if self.min is None or self.max is None else self.max - self.min)
+        else:
+            self._default_increase = self.max - self.min
         pass
 
     @property
@@ -169,8 +176,8 @@ class IntVariable(Variable):
             value = self._retype(_value_)
             pass
         new_value = self.value + value * multi
-        if OutOfRangeError:
-            if value >= 0 and self._is_correct(self.value + value * multi):
+        if self.exception_on_range:
+            if value >= 0 and self._is_correct(new_value):
                 self.value = new_value
                 pass
             else:

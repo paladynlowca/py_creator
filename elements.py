@@ -2,7 +2,7 @@ from copy import copy
 from typing import Optional, Dict, Union
 
 from actions import Action, TargetAction, VariableAction
-from condition import Condition, BoolCondition, IntCondition
+from condition import Condition, BoolCondition, IntCondition, MultiCondition
 from constans import *
 from element import Code
 from exceptions import *
@@ -24,7 +24,7 @@ class Elements(dict):
         self._types: Dict[str, type] = {SCENE: Scene, CONDITION: Condition, TARGET_ACTION: TargetAction, OPTION: Option,
                                         BOOL_VARIABLE: BoolVariable, INT_VARIABLE: IntVariable,
                                         BOOL_CONDITION: BoolCondition, INT_CONDITION: IntCondition,
-                                        VARIABLE_ACTION: VariableAction}
+                                        VARIABLE_ACTION: VariableAction, MULTI_CONDITION: MultiCondition}
         pass
 
     def add_relations(self, _active_: Code, _passive_: Code) -> bool:
@@ -98,23 +98,23 @@ class Elements(dict):
         """
         self[_code_.code] = _code_.type
 
-    def __setitem__(self, _code_: str, _element_: str):
+    def __setitem__(self, _code_: str, _type_: str):
         """
         Creating new game element. If already exist any with same code, deleting it.
         :param _code_: Element str code.
         :type _code_: str
-        :param _element_: Element type.
-        :type _element_: str
+        :param _type_: Element type.
+        :type _type_: str
         """
         if _code_ in self:
             del self[_code_]
             pass
-        if _element_ in self._types:
-            _element_ = self._types[_element_](_code_)
+        if _type_ in self._types:
+            _type_ = self._types[_type_](_code_)
             pass
         else:
-            raise TypeCollisionError(_code_, 'any', _element_)
-        super().__setitem__(_element_.code.code, _element_)
+            raise TypeCollisionError(_code_, 'any', _type_)
+        super().__setitem__(_type_.code.code, _type_)
         pass
 
     def __getitem__(self, _key_: Union[Code, str]) -> TYPES:

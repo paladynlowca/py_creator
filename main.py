@@ -6,38 +6,44 @@ from game import Game
 if __name__ == '__main__':
     game = Game()
     # Tworzenie wszystkich elementów potrzebnych do działania scenariusza.
-    scene1, scene2 = Code('s1', SCENE), Code('s2', SCENE)
-    scene3, scene4 = Code('s3', SCENE), Code('s4', SCENE)
-    game.build_scene(scene1, _title_='Korytarz', _description_='Jesteś w dość krótkim korytarzu.')
-    game.build_scene(scene2, _title_='Ganek', _description_='To zdecydowanie jest ganek, możesz wyjść na zewnątrz.')
-    game.build_scene(scene3, _title_='Ulica',
-                     _description_='Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.')
-    game.build_scene(scene4, _title_='Kuchnia.', _description_='Wszedłeś do kuchni. Nie ma tu nic ciekawego.')
+    scene_hall, scene_entry = Code('hall', SCENE), Code('entry', SCENE)
+    scene_street, scene_kitchen = Code('street', SCENE), Code('kitchen', SCENE)
+    game.build_element(scene_hall, _title_='Korytarz', _description_='Jesteś w dość krótkim korytarzu.')
+    game.build_element(scene_entry, _title_='Ganek',
+                       _description_='To zdecydowanie jest ganek, możesz wyjść na zewnątrz.')
+    game.build_element(scene_street, _title_='Ulica',
+                       _description_='Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.')
+    game.build_element(scene_kitchen, _title_='Kuchnia.', _description_='Wszedłeś do kuchni. Nie ma tu nic ciekawego.')
 
-    option1, option2 = Code('option1', OPTION), Code('option2', OPTION),
-    option3, option4 = Code('option3', OPTION), Code('option4', OPTION)
-    game.build_option(option1, 'Wejdź w drzwi po prawej.')
-    game.build_option(option2, 'Wejdź w drzwi po lewej.')
-    game.build_option(option3, 'Wróć na korytarz.')
-    game.build_option(option4, 'Wyjdź na zewnątrz.')
+    option_to_entry, option_to_kitchen = Code('to_entry', OPTION), Code('to_kitchen', OPTION),
+    option_to_hall, option_to_street = Code('to_hall', OPTION), Code('to_street', OPTION)
+    game.build_element(option_to_entry, _text_='Wejdź w drzwi po prawej.')
+    game.build_element(option_to_kitchen, _text_='Wejdź w drzwi po lewej.')
+    game.build_element(option_to_hall, _text_='Wróć na korytarz.')
+    game.build_element(option_to_street, _text_='Wyjdź na zewnątrz.')
 
-    action1, action2 = Code('target1', ACTION), Code('target2', ACTION),
-    action3, action4 = Code('target3', ACTION), Code('target4', ACTION)
-    game.create_element(Code(action1.code, TARGET_ACTION))
-    game.create_element(Code(action2.code, TARGET_ACTION))
-    game.create_element(Code(action3.code, TARGET_ACTION))
-    game.create_element(Code(action4.code, TARGET_ACTION))
+    action_go_entry, action_go_kitchen = Code('go_entry', ACTION), Code('go_kitchen', ACTION),
+    action_go_hall, action_go_street = Code('go_hall', ACTION), Code('go_street', ACTION)
+    game.build_element(action_go_entry, _precise_type_=TARGET_ACTION)
+    game.build_element(action_go_kitchen, _precise_type_=TARGET_ACTION)
+    game.build_element(action_go_hall, _precise_type_=TARGET_ACTION)
+    game.build_element(action_go_street, _precise_type_=TARGET_ACTION)
 
-    action_variable = Code('variable_change_bool', ACTION)
-    game.build_variable_action(Code(action_variable.code, VARIABLE_ACTION), VARIABLE_INVERSE)
+    action_change_bool = Code('change_bool', ACTION)
+    game.build_element(action_change_bool, _precise_type_=VARIABLE_ACTION, _change_type_=VARIABLE_INVERSE)
 
-    var_int, var_bool = Code('variable1', VARIABLE), Code('variable2', VARIABLE)
-    game.create_element(Code(var_int.code, INT_VARIABLE))
-    game.create_element(Code(var_bool.code, BOOL_VARIABLE))
+    var_int, var_bool = Code('var_int_1', VARIABLE), Code('var_bool_1', VARIABLE)
+    game.build_element(var_int, _precise_type_=INT_VARIABLE)
+    game.build_element(var_bool, _precise_type_=BOOL_VARIABLE)
 
-    con_int, con_bool = Code('condition1', CONDITION), Code('condition2', CONDITION)
-    game.build_condition(Code(con_int.code, INT_CONDITION), MORE, 2)
-    game.build_condition(Code(con_bool.code, BOOL_CONDITION), EQUAL, True)
+    con_int, con_bool = Code('con_int_1', CONDITION), Code('con_bool_1', CONDITION)
+    con_multi = Code('con_multi_1', CONDITION)
+    con_sub1, con_sub2 = Code('con_sub_1', CONDITION), Code('con_sub_2', CONDITION)
+    game.build_element(con_int, _precise_type_=INT_CONDITION, _type_=MORE, _expected_=2)
+    game.build_element(con_bool, _precise_type_=BOOL_CONDITION, _type_=EQUAL, _expected_=True)
+    game.build_element(con_multi, _precise_type_=MULTI_CONDITION, _type_=MULTI_AND, _expected_=True)
+    game.build_element(con_sub1, _precise_type_=INT_CONDITION, _type_=EQUAL, _expected_=3)
+    game.build_element(con_sub2, _precise_type_=BOOL_CONDITION, _type_=EQUAL, _expected_=True)
     a = game[var_int]
     a.value = 3
     a = game[var_bool]
@@ -47,38 +53,43 @@ if __name__ == '__main__':
 
     # Dodawanie relacji pomiędzy obiektami, w komentarzach są kierunki przejść pomiędzy scenami.
     # Korytarz -> ganek
-    game.add_relation(scene1, option1)
-    game.add_relation(option1, action1)
-    game.add_relation(option1, con_bool)
-    game.add_relation(action1, scene2)
+    game.add_relation(scene_hall, option_to_entry)
+    game.add_relation(option_to_entry, action_go_entry)
+    game.add_relation(option_to_entry, con_multi)
+    game.add_relation(action_go_entry, scene_entry)
 
     # Korytarz -> kuchnia
-    game.add_relation(scene1, option2)
-    game.add_relation(option2, action2)
-    game.add_relation(option2, con_int)
-    game.add_relation(option2, action_variable)
-    game.add_relation(action2, scene4)
+    game.add_relation(scene_hall, option_to_kitchen)
+    game.add_relation(option_to_kitchen, action_go_kitchen)
+    # game.add_relation(option_to_kitchen, con_int)
+    game.add_relation(option_to_kitchen, action_change_bool)
+    game.add_relation(action_go_kitchen, scene_kitchen)
 
     # Ganek -> korytarz
-    game.add_relation(scene2, option3)
-    game.add_relation(option3, action3)
-    game.add_relation(action3, scene1)
+    game.add_relation(scene_entry, option_to_hall)
+    game.add_relation(option_to_hall, action_go_hall)
+    game.add_relation(action_go_hall, scene_hall)
 
     # kuchnia -> Korytarz (podpięcie porzednio zbudowanej opcji)
-    game.add_relation(scene4, option3)
+    game.add_relation(scene_kitchen, option_to_hall)
 
     # Ganek -> Ulica
-    game.add_relation(scene2, option4)
-    game.add_relation(option4, action4)
-    game.add_relation(action4, scene3)
+    game.add_relation(scene_entry, option_to_street)
+    game.add_relation(option_to_street, action_go_street)
+    game.add_relation(action_go_street, scene_street)
 
     # zmienne
 
     game.add_relation(con_int, var_int)
     game.add_relation(con_bool, var_bool)
-    game.add_relation(action_variable, var_bool)
+    game.add_relation(action_change_bool, var_bool)
 
-    game.change_scene(scene1)
+    game.add_relation(con_multi, con_sub1)
+    game.add_relation(con_multi, con_sub2)
+    game.add_relation(con_sub1, var_int)
+    game.add_relation(con_sub2, var_bool)
+
+    game.change_scene(scene_hall)
 
     # ------------------------------------------------------------------------------------------------------------------
 
@@ -86,7 +97,7 @@ if __name__ == '__main__':
     scene: SceneFrame = game.scene
     while len(scene.options):
         options = list()
-        print(scene.title, scene.describe, '', sep='\n')
+        print('', scene.title, scene.describe, '', sep='\n')
         i = 1
         for option in scene.options:
             options.append(option)

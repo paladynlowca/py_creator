@@ -13,7 +13,7 @@ class Condition(ConditionUsing):
         self._type: str = CONDITION
         self._condition_type: Optional[type] = None
         self._condition_type_str: Optional[str] = None
-        self._relations_passive.update({ACTION, VARIABLE, OPTION, Condition})
+        self._relations_passive.update({ACTION, VARIABLE, OPTION, CONDITION})
 
         self._variable: Optional[Code] = None
 
@@ -85,14 +85,12 @@ class Condition(ConditionUsing):
     def _set_ready(self):
         self._ready = True if None in (self.expected, self.test_type, self._variable) else False
 
-    def build(self, _type_: str = None, _expected_: int = None, _variable_: Code = None):
+    def build(self, _type_: str = None, _expected_: int = None):
         if _type_ is not None:
             self.test_type = _type_
             pass
         if _expected_ is not None:
             self.expected = _expected_
-        if _variable_ is not None:
-            self.variable = _variable_
             pass
         pass
 
@@ -151,5 +149,29 @@ class IntCondition(Condition):
         elif self._test_type == LESS_EQUAL:
             return self._expected >= value
         return False
+
+    pass
+
+
+class MultiCondition(Condition):
+    def __init__(self, _code_: str):
+        super().__init__(_code_)
+        self._condition_type = int
+        self._condition_type_str = MULTI_CONDITION
+        self._test_set = (None, MULTI_AND, MULTI_OR)
+        pass
+
+    def test(self, _values_: list) -> bool:
+        output = True if self.test_type is MULTI_AND or not len(_values_) else False
+        for value in _values_:
+            if self.test_type is MULTI_AND:
+                output = output and value
+                pass
+            elif self.test_type is MULTI_OR:
+                output = output or value
+                pass
+            pass
+        return output
+        pass
 
     pass

@@ -120,6 +120,9 @@ class Element:
         """
         return self._relations
 
+    def build(self, **kwargs):
+        pass
+
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         """
         Adding relation to element.
@@ -234,7 +237,6 @@ class Element:
     pass
 
 
-# Unimplemented
 class ConditionUsing(Element):
     def __init__(self, _code_: str):
         super().__init__(_code_)
