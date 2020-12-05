@@ -1,7 +1,7 @@
 from copy import copy
 from typing import Optional, Dict, Union
 
-from actions import Action, TargetAction, VariableAction
+from action import Action, TargetAction, VariableAction
 from condition import Condition, BoolCondition, IntCondition, MultiCondition
 from constans import *
 from element import Code
@@ -87,7 +87,7 @@ class Elements(dict):
         :rtype: str or None
         """
         if _code_ in self:
-            return self[_code_].type
+            return super().__getitem__(_code_).type
         return None
 
     def add(self, _code_: Code):
@@ -107,7 +107,7 @@ class Elements(dict):
         :type _type_: str
         """
         if _code_ in self:
-            del self[_code_]
+            del self[Code(_code_, self.check_type(_code_))]
             pass
         if _type_ in self._types:
             _type_ = self._types[_type_](_code_)
@@ -117,7 +117,7 @@ class Elements(dict):
         super().__setitem__(_type_.code.code, _type_)
         pass
 
-    def __getitem__(self, _key_: Union[Code, str]) -> TYPES:
+    def __getitem__(self, _key_: Code) -> TYPES:
         """
         Geting game element.
         :param _key_: Element code.
@@ -126,17 +126,14 @@ class Elements(dict):
         :rtype: Element subclass
         :raises TypeCollision: If declared type and found type is different.
         """
-        if type(_key_) is Code:
-            element = super().__getitem__(_key_.code)
-            if element.type == _key_.type:
-                return element
-            else:
-                raise TypeCollisionError(element.code.code, element.type, _key_.type)
-            pass
+        element = super().__getitem__(_key_.code)
+        if element.type == _key_.type:
+            return element
         else:
-            return super().__getitem__(_key_)
+            raise TypeCollisionError(element.code.code, element.type, _key_.type)
+        pass
 
-    def __delitem__(self, _key_: str):
+    def __delitem__(self, _key_: Code):
         """
         Delete element from game elements.
         :param _key_: Element str code.
@@ -145,7 +142,7 @@ class Elements(dict):
         """
         element = self[_key_]
         if element.relations:
-            raise ExistingRelationsError(_key_, element.relations)
+            raise ExistingRelationsError(_key_.code, element.relations)
         super().__delitem__(_key_)
         pass
 
@@ -154,7 +151,7 @@ class Elements(dict):
         Clearing all relations on delete.
         """
         for code in self:
-            self.clear_relations(self[code].code)
+            self.clear_relations(self[Code(code, self.check_type(code))].code)
             pass
         pass
     pass

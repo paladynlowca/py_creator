@@ -19,6 +19,7 @@ class Action(ConditionUsing):
         self._type = ACTION
         self._action_type: Optional[str] = None
         self._relations_passive.update({OPTION, VARIABLE})
+        self._time_increase = None
         pass
 
     @property
@@ -29,6 +30,28 @@ class Action(ConditionUsing):
         :rtype: str
         """
         return self._action_type
+
+    @property
+    def time_increase(self):
+        return self._time_increase
+
+    @time_increase.setter
+    def time_increase(self, _value_):
+        if _value_ is None:
+            self._time_increase = _value_
+            return
+        value = int(_value_)
+        if value >= 0:
+            self._time_increase = value
+            pass
+        else:
+            raise OutOfRangeError(value, 0, None)
+        pass
+
+    def build(self, _time_increase_: int = None, **kwargs):
+        self.time_increase = _time_increase_
+        pass
+
     pass
 
 
@@ -158,13 +181,14 @@ class VariableAction(Action):
             pass
         return super().del_relation(_code_, _passive_)
 
-    def build(self, _change_type_: str = None, _change_value_: Union[int, bool] = None):
+    def build(self, _change_type_: str = None, _change_value_: Union[int, bool] = None, **kwargs):
         if _change_type_ is not None:
             self.change_type = _change_type_
             pass
         if _change_value_ is not None:
             self.change_value = _change_value_
             pass
+        super().build(**kwargs)
         pass
 
     pass

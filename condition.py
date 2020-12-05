@@ -85,12 +85,12 @@ class Condition(ConditionUsing):
     def _set_ready(self):
         self._ready = True if None in (self.expected, self.test_type, self._variable) else False
 
-    def build(self, _type_: str = None, _expected_: int = None):
-        if _type_ is not None:
-            self.test_type = _type_
+    def build(self, _test_type_: str = None, _expected_value_: int = None):
+        if _test_type_ is not None:
+            self.test_type = _test_type_
             pass
-        if _expected_ is not None:
-            self.expected = _expected_
+        if _expected_value_ is not None:
+            self.expected = _expected_value_
             pass
         pass
 

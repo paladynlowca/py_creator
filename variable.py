@@ -1,8 +1,8 @@
 from abc import abstractmethod
-from typing import Optional
+from typing import Optional, Set
 
 from constans import *
-from element import Element
+from element import Element, Code
 from exceptions import *
 
 
@@ -15,7 +15,7 @@ class Variable(Element):
         self._value_type_str: Optional[str] = None
         self._relations_passive.update({CONDITION, ACTION})
         self._value = None
-        self._actions = set()
+        self._actions: Set[Code] = set()
         pass
 
     @property
@@ -33,7 +33,7 @@ class Variable(Element):
             self._value = value
             pass
         elif self._exception_on_range:
-            raise OutOfRangeError('a', 'a', 'a')
+            raise ValueError()
         else:
             self._value = self._trim(value)
         pass
@@ -56,6 +56,15 @@ class Variable(Element):
             pass
         except (ValueError, TypeError):
             raise TypeCollisionError(self.code.code, self._value_type.__name__, type(_value_).__name__)
+        pass
+
+    def build(self, _value_=None, **kwargs):
+        if _value_ is not None:
+            value = True if _value_ == 'True' else False if _value_ == 'False' else _value_
+            self.value = value
+            pass
+        super().build(**kwargs)
+        pass
 
     @abstractmethod
     def _is_correct(self, _value_):
@@ -198,6 +207,20 @@ class IntVariable(Variable):
         return False
 
     def _trim(self, _value_: int) -> int:
-        return self.min if _value_ < self.min else self.max if _value_ > self.max else _value_
+        return self.min if self.min is not None and _value_ < self.min \
+            else self.max if self.max is not None and _value_ > self.max else _value_
+
+    def build(self, _default_increase_=None, _value_min_=None, _value_max_=None, **kwargs):
+        if _default_increase_ is not None:
+            self.default_increase = _default_increase_
+            pass
+        if _value_min_ is not None:
+            self.min = _value_min_
+            pass
+        if _value_max_ is not None:
+            self.max = _value_max_
+            pass
+        super().build(**kwargs)
+        pass
 
     pass

@@ -21,6 +21,8 @@ class Game:
 
         # Current active scene.
         self._current_scene: Optional[Code] = None
+
+        self.build_element(Code('__time__', VARIABLE), _precise_type_=INT_VARIABLE)
         pass
 
     @property
@@ -95,7 +97,7 @@ class Game:
         pass
 
     def build_element(self, _code_: Code, _precise_type_: str = None, **kwargs):
-        if self._elements.check_type(_code_.code) is None and _code_.type in ELEMENTS_LIST:
+        if self._elements.check_type(_code_.code) is None and _code_.type in TYPES_LIST:
             self._elements.add(_code_ if _precise_type_ is None else Code(_code_.code, _precise_type_))
             pass
         self[_code_].build(**kwargs)
@@ -108,7 +110,7 @@ class Game:
         del self._elements
         pass
 
-    def execute(self, _option_: Code):
+    def execute_option(self, _option_: Code):
         """
         Executing all scene actions.
         :param _option_: Option choose by player.
@@ -145,6 +147,9 @@ class Game:
                 for variable_action in variable.actions:
                     self._execute_action(variable_action)
                 pass
+            else:
+                return
+            self[Code('__time__', VARIABLE)].increase(_value_=action.time_increase)
             pass
         pass
 

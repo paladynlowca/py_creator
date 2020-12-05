@@ -26,7 +26,7 @@ if __name__ == '__main__':
     action_go_hall, action_go_street = Code('go_hall', ACTION), Code('go_street', ACTION)
     game.build_element(action_go_entry, _precise_type_=TARGET_ACTION)
     game.build_element(action_go_kitchen, _precise_type_=TARGET_ACTION)
-    game.build_element(action_go_hall, _precise_type_=TARGET_ACTION)
+    game.build_element(action_go_hall, _precise_type_=TARGET_ACTION, _time_increase_=5)
     game.build_element(action_go_street, _precise_type_=TARGET_ACTION)
 
     action_change_bool = Code('change_bool', ACTION)
@@ -39,11 +39,11 @@ if __name__ == '__main__':
     con_int, con_bool = Code('con_int_1', CONDITION), Code('con_bool_1', CONDITION)
     con_multi = Code('con_multi_1', CONDITION)
     con_sub1, con_sub2 = Code('con_sub_1', CONDITION), Code('con_sub_2', CONDITION)
-    game.build_element(con_int, _precise_type_=INT_CONDITION, _type_=MORE, _expected_=2)
-    game.build_element(con_bool, _precise_type_=BOOL_CONDITION, _type_=EQUAL, _expected_=True)
-    game.build_element(con_multi, _precise_type_=MULTI_CONDITION, _type_=MULTI_AND, _expected_=True)
-    game.build_element(con_sub1, _precise_type_=INT_CONDITION, _type_=EQUAL, _expected_=3)
-    game.build_element(con_sub2, _precise_type_=BOOL_CONDITION, _type_=EQUAL, _expected_=True)
+    game.build_element(con_int, _precise_type_=INT_CONDITION, _test_type_=MORE, _expected_value_=2)
+    game.build_element(con_bool, _precise_type_=BOOL_CONDITION, _test_type_=EQUAL, _expected_value_=True)
+    game.build_element(con_multi, _precise_type_=MULTI_CONDITION, _test_type_=MULTI_AND, _expected_value_=True)
+    game.build_element(con_sub1, _precise_type_=INT_CONDITION, _test_type_=EQUAL, _expected_value_=3)
+    game.build_element(con_sub2, _precise_type_=BOOL_CONDITION, _test_type_=EQUAL, _expected_value_=True)
     a = game[var_int]
     a.value = 3
     a = game[var_bool]
@@ -106,7 +106,7 @@ if __name__ == '__main__':
             pass
         data = input('>>')
         try:
-            game.execute(options[int(data) - 1])
+            game.execute_option(options[int(data) - 1])
             pass
         except (IndexError, ValueError):
             print('error')
