@@ -3,7 +3,8 @@ from pathlib import Path
 from typing import Optional, List
 
 from constans import *
-from element import Element, Code
+from data_frame import ElementFrame
+from engine.element import Element, Code
 
 
 class Scene(Element):
@@ -21,7 +22,7 @@ class Scene(Element):
 
         self.title: Optional[str] = None
         self.describe: Optional[str] = None
-        self._image: Optional[Path] = None
+        self._image: Optional[str] = None
         self._relations_passive.add(ACTION)
 
         self._options = list()
@@ -81,7 +82,7 @@ class Scene(Element):
         :param _value_: New image path string.
         :type _value_: str
         """
-        self._image = Path(_value_)
+        self._image = _value_
         pass
 
     @property
@@ -92,6 +93,12 @@ class Scene(Element):
         :rtype: list
         """
         return copy(self._options)
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_title_=self.title, _description_=self.describe, _image_=self.image)
+        frame.add_relation(*self.options)
+        return frame
 
     def build(self, _title_: Optional[str] = None, _description_: Optional[str] = None, _image_: Optional[str] = None):
         """

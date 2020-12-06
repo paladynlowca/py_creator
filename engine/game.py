@@ -1,10 +1,10 @@
 from typing import Dict, Optional, Union, Any
 
-from condition import Condition
 from constans import *
 from data_frame import SceneFrame
-from element import Code
-from elements import Elements, TYPES
+from engine.condition import Condition
+from engine.element import Code
+from engine.elements import Elements, TYPES
 from exceptions import TypeCollisionError
 
 
@@ -14,6 +14,7 @@ class Game:
     """
 
     def __init__(self):
+        self._scenario_name = 'default'
         # List of all game elements (scenes, actions, ets).
         self._elements: Union[Dict[Any, TYPES], Elements] = Elements()
         # Switch change allow graphic game mode.
@@ -26,6 +27,14 @@ class Game:
         pass
 
     @property
+    def name(self):
+        return self._scenario_name
+
+    @name.setter
+    def name(self, _value_: str):
+        self._scenario_name = str(_value_)
+
+    @property
     def scene(self) -> SceneFrame:
         """
         Preparing scene data for user interface handler.
@@ -33,7 +42,8 @@ class Game:
         :rtype: SceneFrame
         """
         scene = self[self._current_scene]
-        frame = SceneFrame(_title_=scene.title, _describe_=scene.describe, _img_=scene.image)
+        frame = SceneFrame(_code_=self._current_scene, _title_=scene.title, _describe_=scene.describe,
+                           _img_=scene.image)
         for code in self[self._current_scene].options:
             option = self[code]
             if self.check_conditions(code):
@@ -41,6 +51,17 @@ class Game:
                 pass
             pass
         return frame
+
+    @property
+    def element_frames(self):
+        frames = list()
+        for element in self._elements:
+            frame = self[Code(element, self._elements.check_type(element))].element_frame
+            frame.add_property('code', element)
+            frame.add_property('type', self._elements.check_type(element))
+            frames.append(frame)
+            pass
+        return frames
 
     def create_element(self, _code_: Code) -> bool:
         """
@@ -116,7 +137,7 @@ class Game:
         :param _option_: Option choose by player.
         :type _option_: Code
         """
-        if _option_.type is OPTION and _option_ in self.scene.options and self.check_conditions(_option_):
+        if _option_.type == OPTION and _option_ in self.scene.options and self.check_conditions(_option_):
             for code in self[_option_].actions:
                 self._execute_action(code)
             pass
@@ -160,10 +181,10 @@ class Game:
         return value
 
     def _check_condition(self, _condition_: Code) -> bool:
-        if _condition_.type is not CONDITION:
+        if _condition_.type != CONDITION:
             raise TypeCollisionError(_condition_.code, CONDITION, _condition_.type)
         condition: Condition = self[_condition_]
-        if condition.condition_type is MULTI_CONDITION:
+        if condition.condition_type == MULTI_CONDITION:
             results = list()
             for sub_condition in condition.conditions:
                 results.append(self._check_condition(sub_condition))

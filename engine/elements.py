@@ -1,14 +1,14 @@
 from copy import copy
 from typing import Optional, Dict, Union
 
-from action import Action, TargetAction, VariableAction
-from condition import Condition, BoolCondition, IntCondition, MultiCondition
 from constans import *
-from element import Code
+from engine.action import Action, TargetAction, VariableAction
+from engine.condition import Condition, BoolCondition, IntCondition, MultiCondition
+from engine.element import Code
+from engine.option import Option
+from engine.scene import Scene
+from engine.variable import BoolVariable, IntVariable
 from exceptions import *
-from option import Option
-from scene import Scene
-from variable import BoolVariable, IntVariable
 
 # Short type hint for any elements types.
 TYPES = Union[Scene, Condition, Action, TargetAction, Option, BoolVariable, IntVariable, VariableAction]

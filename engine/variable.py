@@ -2,7 +2,8 @@ from abc import abstractmethod
 from typing import Optional, Set
 
 from constans import *
-from element import Element, Code
+from data_frame import ElementFrame
+from engine.element import Element, Code
 from exceptions import *
 
 
@@ -84,6 +85,12 @@ class BoolVariable(Variable):
         self._value_type_str = BOOL_VARIABLE
         self.value = _value_
         pass
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_precise_type_=self.value_type, _value_=self.value)
+        frame.add_relation(*self.actions)
+        return frame
 
     def invert(self):
         self.value = not self.value
@@ -175,6 +182,13 @@ class IntVariable(Variable):
                 pass
             pass
         pass
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_precise_type_=self.value_type, _value_=self.value, _min_=self.min, _max_=self.max,
+                             _default_increase_=self.default_increase)
+        frame.add_relation(*self.actions)
+        return frame
 
     def increase(self, _value_: Optional[int] = None, _reverse_: bool = False):
         multi = -1 if _reverse_ else 1

@@ -1,5 +1,12 @@
-from parse_elements import *
-from xml_constants import *
+from typing import Dict, List
+from xml.etree.ElementTree import Element, parse
+
+from constans import *
+from engine.element import Code
+from engine.game import Game
+from xml_handler.xml_constants import *
+from xml_handler.xml_parse_elements import ParseScene, ParseOption, ParseAction, ParseCondition, ParseVariable, \
+    ParseElement
 
 PARSERS: Dict[str, type] = {SCENE: ParseScene, OPTION: ParseOption, ACTION: ParseAction, CONDITION: ParseCondition,
                             VARIABLE: ParseVariable}
@@ -11,7 +18,7 @@ class XMLLoader:
         self._version = '0.1'
         self._game = _game_
         self._file: str = f'scenarios/{_scenario_name_}.xml'
-        self._root: ElementTree.Element = ElementTree.parse(self._file).getroot()
+        self._root: Element = parse(self._file).getroot()
         pass
 
     def load(self):
@@ -25,8 +32,6 @@ class XMLLoader:
         for element in self._root.findall(ELEMENT):
             type_ = element.find(XML_TYPE)
             if type_.text not in BASIC_TYPES_LIST:
-                print(type_)
-                print('ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss')
                 pass
             else:
                 elements.append(PARSERS[type_.text](element, self._game))
@@ -39,16 +44,15 @@ class XMLLoader:
         for element in elements:
             element.add_relations()
             pass
-        self._game.change_scene(Code('hall', SCENE))
+        settings: Element = self._root.find(XML_SETTINGS)
+        name: Element = settings.find(XML_NAME)
+        if name is not None:
+            self._game.name = name.text
+            pass
+        init_scene: Element = settings.find(XML_INIT_SCENE)
+        if init_scene is not None:
+            self._game.change_scene(Code(init_scene.text, SCENE))
+            pass
         pass
 
     pass
-
-
-game = Game()
-parser = XMLLoader(game, 'test2')
-parser.load()
-# game.add_relation(Code('hall', SCENE), Code('to_entry', OPTION))
-scene = game.scene
-print(scene.title)
-print(scene.options)

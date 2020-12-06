@@ -2,7 +2,8 @@ from copy import copy
 from typing import List, Optional
 
 from constans import *
-from element import Code, ConditionUsing
+from data_frame import ElementFrame
+from engine.element import Code, ConditionUsing
 
 
 class Option(ConditionUsing):
@@ -39,6 +40,12 @@ class Option(ConditionUsing):
         :rtype: str
         """
         return self._text
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_text_=self.text)
+        frame.add_relation(*self._conditions, *self.actions)
+        return frame
 
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         """

@@ -46,4 +46,8 @@
         <type>option</type>
         <text>Wyjdź na zewnątrz.</text>
     </element>
+    <settings>
+        <scenario_name>Scenariusz testowy.</scenario_name>
+        <init_scene>hall</init_scene>
+    </settings>
 </scenario>

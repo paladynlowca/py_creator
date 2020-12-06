@@ -131,11 +131,13 @@ def prepare_encode_table(password: str = ''):
 def prepare_decode_table(password: str = ''):
     output = dict()
     iterator = iter(chars_numbers)
+    # Dla każdego znaku w haśle sprawdź, czy jest on odpowiednią literą i czy nie pojawił się wcześniej
     for char in password.upper():
-        if char not in output.values() and char in chars_letters:  # Sprawdzenie, czy znak jest literą i nie ma go w tablicy
+        if char not in output.values() and char in chars_letters:
             output[next(iterator)] = char  # Przypisanie do kolejnej wartości szyfru litery z hasła
             pass
         pass
+    # Dla pozostałych
     for char in chars_letters:
         if char not in output.values():  # Sprawdzenie, czy znaku nie ma w tablicy
             output[next(iterator)] = char  # Przypisanie do kolejnej wartości szyfru litery

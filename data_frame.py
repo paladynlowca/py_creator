@@ -1,7 +1,42 @@
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, Optional, List
 
-from element import Code
+from engine.element import Code
+
+
+class ElementFrame:
+    """
+    Class contains all data use for display scene.
+    """
+
+    def __init__(self, **kwargs):
+        self.code = None
+        self.type = None
+        self.properties: Dict[str,] = dict()
+        self.relations: List[Code] = list()
+
+        for attribute in kwargs:
+            self.add_property(attribute, kwargs[attribute])
+            pass
+        pass
+
+    def add_property(self, _name_: str, _value_):
+        if _name_ == 'code':
+            self.code = _value_
+            return
+        if _name_ == 'type':
+            self.type = _value_
+            return
+        self.properties[_name_] = _value_
+        pass
+
+    def add_relation(self, *args):
+        for element in args:
+            self.relations.append(element)
+            pass
+        pass
+
+    pass
 
 
 class SceneFrame:
@@ -9,7 +44,8 @@ class SceneFrame:
     Class contains all data use for display scene.
     """
 
-    def __init__(self, _title_: Optional[str] = None, _describe_: Optional[str] = None, _img_: Optional[Path] = None):
+    def __init__(self, _code_: Code, _title_: Optional[str] = None, _describe_: Optional[str] = None,
+                 _img_: Optional[Path] = None):
         """
         :param _title_: Scene title.
         :type _title_: str
@@ -18,6 +54,7 @@ class SceneFrame:
         :param _img_: Scene image path.
         :type _img_: Path
         """
+        self.code = _code_
         self.title: Optional[str] = _title_
         self.describe: Optional[str] = _describe_
         self.img: Optional[Path] = _img_

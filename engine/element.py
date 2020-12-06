@@ -1,3 +1,4 @@
+from abc import ABC
 from copy import copy
 from typing import Set, List, Optional
 
@@ -120,6 +121,10 @@ class Element:
         """
         return self._relations
 
+    @property
+    def element_frame(self):
+        return None
+
     def build(self, **kwargs):
         pass
 
@@ -237,7 +242,7 @@ class Element:
     pass
 
 
-class ConditionUsing(Element):
+class ConditionUsing(Element, ABC):
     def __init__(self, _code_: str):
         super().__init__(_code_)
         self._conditions: List[Code] = list()

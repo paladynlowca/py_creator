@@ -1,7 +1,8 @@
 from typing import Optional, Union
 
 from constans import *
-from element import Code, ConditionUsing
+from data_frame import ElementFrame
+from engine.element import Code, ConditionUsing
 from exceptions import *
 
 
@@ -48,11 +49,13 @@ class Action(ConditionUsing):
             raise OutOfRangeError(value, 0, None)
         pass
 
+    @property
+    def element_frame(self):
+        return None
+
     def build(self, _time_increase_: int = None, **kwargs):
         self.time_increase = _time_increase_
         pass
-
-    pass
 
 
 class TargetAction(Action):
@@ -74,6 +77,12 @@ class TargetAction(Action):
         :rtype: Code
         """
         return self._scene
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_precise_type_=self.action_type, _time_increase_=self.time_increase)
+        frame.add_relation(*self._conditions, self._scene)
+        return frame
 
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         """
@@ -148,6 +157,13 @@ class VariableAction(Action):
     def change_value(self, _value_):
         self._change_value = _value_
         pass
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_precise_type_=self.action_type, _time_increase_=self.time_increase,
+                             _change_type_=self.change_type, _change_value_=self.change_value)
+        frame.add_relation(*self._conditions, self._variable)
+        return frame
 
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         """

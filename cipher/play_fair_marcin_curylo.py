@@ -1,4 +1,3 @@
-from random import Random
 from typing import Callable, List
 
 
@@ -102,28 +101,37 @@ def get_input(reverse: bool = False):
     # pobieranie tekstu do zaszyfrowania
     print(f'Wprowadź ciąg do {word}:')
     output = list()
+    # Zamiana na wielkie litery oraz podmiana J na I
     raw = input('>>').upper().replace('J', 'I')
     data = ''
+    # Wyrzucenie wszystkich znaków spoza alfabetu łacińskiego oraz J
     for char in raw:
         if char in chars_letters:
             data += char
             pass
         pass
+    # Podział na pary znaków z zabezpieczeniem przed dodaniem do pary dwóch takich samych znaków
     pos = 2
     while True:
+        # Pobranie dwóch kolejnych znaków
         pair = data[pos - 2:pos]
+        # Jeżeli nie pobrano, to wyjdź
         if len(pair) == 0:
             return output
+        # Jeżeli został tylko jeden, to dodaj mu znak X (jeżeli jest to znak X, to Y), dodaj do wyjścia i wyjdź
         elif len(pair) == 1:
             output.append(pair + ('Y' if pair == 'X' else 'X'))
             return output
+        # Jeżeli są to te same znaki, to zamień drugi na znak X(jeżeli są to znaki X, to Y) i przesuń wskaźnik o 1
         elif pair[0] == pair[1]:
             pair = pair[0] + ('Y' if pair[0] == 'X' else 'X')
             pos += 1
             pass
+        # W przeciwnym wypadku przesuń wskaźnik o 2
         else:
             pos += 2
             pass
+        # Dodaj do listy par tą aktualną
         output.append(pair)
         pass
 
@@ -134,6 +142,7 @@ def get_password():
     return input('>>').upper()
 
 
+# Iterator zwracający krotkę z kolejnymi współżędnymi znaku
 class Numbers:
     def __init__(self):
         self._x = -1
@@ -175,6 +184,7 @@ def prepare_table():
 
 
 def encode(reverse: bool = False):
+    # Ustaw współczynnik przesunięcia (+1 dla szyfrowania, -1 dla deszyfrowania)
     switch = -1 if reverse else 1
     # Pobranie tekstu od użytkownika i przygotowanie tablicy z szyfrem
     pairs = get_input(reverse)
@@ -182,15 +192,20 @@ def encode(reverse: bool = False):
     table_reverse = {table[key]: key for key in table}
     # Zaszyfrowanie kolejnych znaków
     output = ''
+    # Dla każdej pary znaków
     for pair in pairs:
+        # Znajdź współżędne znaków
         c1 = table[pair[0]]
         c2 = table[pair[1]]
+        # Jeżeli sa w jednej kolumnie to przesuń zgodnie z ustalonym kierunkiem
         if c1[1] == c2[1]:
             output += table_reverse[((c1[0] + switch) % 5, c1[1])] + table_reverse[((c2[0] + switch) % 5, c2[1])]
             pass
+        # Jeżeli sa w jednym wierszu to przesuń zgodnie z ustalonym kierunkiem
         elif c1[0] == c2[0]:
             output += table_reverse[(c1[0], (c1[1] + switch) % 5)] + table_reverse[(c2[0], (c2[1] + switch) % 5)]
             pass
+        # W przeciwnym wypadku weź znak o współżedych (jego x, y drugiego znaku z pary)
         else:
             output += table_reverse[(c1[0], c2[1])] + table_reverse[(c2[0], c1[1])]
             pass
@@ -203,6 +218,7 @@ def encode(reverse: bool = False):
 
 
 def decode():
+    # Wywołaj szyftowania z odwróconym przesunięciem
     encode(True)
     pass
 

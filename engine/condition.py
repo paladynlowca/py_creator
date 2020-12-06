@@ -2,7 +2,8 @@ from abc import abstractmethod
 from typing import Optional
 
 from constans import *
-from element import Code, ConditionUsing
+from data_frame import ElementFrame
+from engine.element import Code, ConditionUsing
 from exceptions import *
 
 
@@ -60,6 +61,14 @@ class Condition(ConditionUsing):
         self._test_type = _type_
         self._set_ready()
         pass
+        pass
+
+    @property
+    def element_frame(self):
+        frame = ElementFrame(_precise_type_=self.condition_type, _test_type_=self.test_type,
+                             _expected_value_=self.expected)
+        frame.add_relation(*self._conditions, self._variable)
+        return frame
 
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         if not _passive_:
@@ -162,12 +171,12 @@ class MultiCondition(Condition):
         pass
 
     def test(self, _values_: list) -> bool:
-        output = True if self.test_type is MULTI_AND or not len(_values_) else False
+        output = True if self.test_type == MULTI_AND or not len(_values_) else False
         for value in _values_:
-            if self.test_type is MULTI_AND:
+            if self.test_type == MULTI_AND:
                 output = output and value
                 pass
-            elif self.test_type is MULTI_OR:
+            elif self.test_type == MULTI_OR:
                 output = output or value
                 pass
             pass

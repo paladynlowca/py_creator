@@ -1,7 +1,8 @@
 from constans import *
 from data_frame import SceneFrame
-from element import Code
-from game import Game
+from engine.element import Code
+from engine.game import Game
+from xml_handler.xml_loader import XMLLoader
 
 if __name__ == '__main__':
     game = Game()
@@ -91,6 +92,8 @@ if __name__ == '__main__':
 
     game.change_scene(scene_hall)
 
+    file = XMLLoader(game, 'test3')
+    exit(0)
     # ------------------------------------------------------------------------------------------------------------------
 
     # Prosta pętla pozwalająca tymczasowo przetestować działanie scenariusza.
