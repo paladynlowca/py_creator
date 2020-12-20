@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="Add variables and conditions.">
-      <change afterPath="$PROJECT_DIR$/scenarios/test3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xml_handler/xml_build_element.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xml_handler/xml_saver.py" afterDir="false" />
+    <list default="true" id="387b84ed-d46f-4a0a-918b-2fbd099631f5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/creator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lang/pl.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scenarios/test4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_edit.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_edit_list.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_edit_main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_edit_popup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_edit_top.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_item.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_e_main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_editor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_g_navbar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_g_scene.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_game.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/window/tk_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/action.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cipher/Polybius_MCurylo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cipher/Polybius_MCurylo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cipher/play_fair_marcin_curylo.py" beforeDir="false" afterPath="$PROJECT_DIR$/cipher/play_fair_marcin_curylo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/condition.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/condition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constans.py" beforeDir="false" afterPath="$PROJECT_DIR$/constans.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/element.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/elements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/action.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_el_action.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/condition.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_el_condition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/element.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_elements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/option.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_el_option.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_el_scene.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/engine/variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/engine_el_variable.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exceptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/exceptions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/option.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/option.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parse_elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_parse_elements.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenarios/test2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scenarios/test2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scene.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/scene.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/variable.py" beforeDir="false" afterPath="$PROJECT_DIR$/engine/variable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xml_constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_constants.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/xml_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scenarios/test3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/scenarios/test3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xml_handler/xml_build_element.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_build_element.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xml_handler/xml_loader.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_loader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xml_handler/xml_parse_elements.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_parse_elements.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/xml_handler/xml_saver.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_handler/xml_saver.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/xml_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/xml_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +62,9 @@
     </option>
   </component>
   <component name="ProjectId" id="1dg0NFjENbLf41c3MjcYHN8HsP2" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -56,23 +73,48 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cipher" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\cipher" />
+      <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\scenarios" />
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\window" />
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator" />
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\engine" />
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\xml_handler" />
       <recent name="C:\Users\User\Dysk Google\programowanie\Python\py_creator\cipher" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.xml_test (1)">
+  <component name="RunManager" selected="Python.creator">
+    <configuration name="creator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="py_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/creator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="py_creator" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -87,6 +129,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="player (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="py_creator" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/player.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -117,7 +181,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="xml_build_element" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="vigener_marcin_curylo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="py_creator" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -125,56 +189,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/xml_handler" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/cipher" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xml_handler/xml_build_element.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="xml_test (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="py_creator" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xml_test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="xml_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="py_creator" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/xml_handler" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="C:\Users\User\Dysk Google\programowanie\Python\py_creator\xml_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/cipher/vigener_marcin_curylo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -185,11 +205,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.xml_test (1)" />
+        <item itemvalue="Python.creator" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.main" />
-        <item itemvalue="Python.xml_test" />
-        <item itemvalue="Python.xml_build_element" />
+        <item itemvalue="Python.vigener_marcin_curylo" />
+        <item itemvalue="Python.player (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -217,7 +237,11 @@
       <workItem from="1606211201540" duration="64499000" />
       <workItem from="1606658002731" duration="43591000" />
       <workItem from="1606998901881" duration="21865000" />
-      <workItem from="1607159789849" duration="40079000" />
+      <workItem from="1607159789849" duration="40434000" />
+      <workItem from="1607328030390" duration="56922000" />
+      <workItem from="1607804068503" duration="9358000" />
+      <workItem from="1608033028142" duration="75250000" />
+      <workItem from="1608459994201" duration="23162000" />
     </task>
     <task id="LOCAL-00001" summary="I don't know, what I do.">
       <created>1606386577755</created>
@@ -282,7 +306,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607206441579</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Implement XML scenario file creating and loading.">
+      <created>1607293876604</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607293876604</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -312,56 +343,65 @@
     <MESSAGE value="Add variables and conditions." />
     <MESSAGE value="Finish variables and conditions." />
     <MESSAGE value="Add loading scenarios from file." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add loading scenarios from file." />
+    <MESSAGE value="Implement XML scenario file creating and loading." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement XML scenario file creating and loading." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="547" y="232" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607419619013">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="547" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1600.860@0.0.1600.860" timestamp="1607419619013" />
     <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser" timestamp="1607249827802">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="605" y="145" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1607249827802" />
-    <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606409701321">
+    <state x="337" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1608291894209">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1606409701321" />
-    <state x="447" y="2" key="CommitChangelistDialog2" timestamp="1607206433293">
+    <state x="337" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1600.860@0.0.1600.860" timestamp="1608291894209" />
+    <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1608035408650">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="447" y="2" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1607206433293" />
-    <state width="1556" height="194" key="GridCell.Tab.0.bottom" timestamp="1607293757790">
+    <state x="530" y="176" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1600.860@0.0.1600.860" timestamp="1608035408650" />
+    <state x="447" y="2" key="CommitChangelistDialog2" timestamp="1607294276701">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="194" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1607293757790" />
-    <state width="1556" height="194" key="GridCell.Tab.0.center" timestamp="1607293757790">
+    <state x="447" y="2" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1607294276701" />
+    <state width="1556" height="180" key="GridCell.Tab.0.bottom" timestamp="1608489094602">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="194" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1607293757790" />
-    <state width="1556" height="194" key="GridCell.Tab.0.left" timestamp="1607293757790">
+    <state width="1556" height="180" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1608489094602" />
+    <state width="1556" height="180" key="GridCell.Tab.0.center" timestamp="1608489094602">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="194" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1607293757790" />
-    <state width="1556" height="194" key="GridCell.Tab.0.right" timestamp="1607293757790">
+    <state width="1556" height="180" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1608489094602" />
+    <state width="1556" height="180" key="GridCell.Tab.0.left" timestamp="1608489094602">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="194" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1607293757790" />
-    <state width="1556" height="270" key="GridCell.Tab.1.bottom" timestamp="1607175513352">
+    <state width="1556" height="180" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1608489094602" />
+    <state width="1556" height="180" key="GridCell.Tab.0.right" timestamp="1608489094602">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="270" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1607175513352" />
-    <state width="1556" height="270" key="GridCell.Tab.1.center" timestamp="1607175513352">
+    <state width="1556" height="180" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1608489094602" />
+    <state width="1556" height="270" key="GridCell.Tab.1.bottom" timestamp="1608305896905">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="270" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1607175513352" />
-    <state width="1556" height="270" key="GridCell.Tab.1.left" timestamp="1607175513350">
+    <state width="1556" height="270" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1608305896905" />
+    <state width="1556" height="270" key="GridCell.Tab.1.center" timestamp="1608305896905">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="270" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1607175513350" />
-    <state width="1556" height="270" key="GridCell.Tab.1.right" timestamp="1607175513352">
+    <state width="1556" height="270" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1608305896905" />
+    <state width="1556" height="270" key="GridCell.Tab.1.left" timestamp="1608305896905">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1556" height="270" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1607175513352" />
+    <state width="1556" height="270" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1608305896905" />
+    <state width="1556" height="270" key="GridCell.Tab.1.right" timestamp="1608305896905">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state width="1556" height="270" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1608305896905" />
     <state x="301" y="61" key="SettingsEditor" timestamp="1607166541815">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -381,19 +421,24 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/py_creator$game.coverage" NAME="game Coverage Results" MODIFIED="1604961373807" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/py_creator$xml_test__1_.coverage" NAME="xml_test (1) Coverage Results" MODIFIED="1607293757782" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$xml_test__1_.coverage" NAME="xml_test (1) Coverage Results" MODIFIED="1607424704426" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$action.coverage" NAME="action Coverage Results" MODIFIED="1603206157749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$xml_build_element.coverage" NAME="xml_build_element Coverage Results" MODIFIED="1607279847279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/xml_handler" />
-    <SUITE FILE_PATH="coverage/py_creator$main.coverage" NAME="main Coverage Results" MODIFIED="1607290041078" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$main.coverage" NAME="main Coverage Results" MODIFIED="1608206859604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$vigener_marcin_curylo.coverage" NAME="vigener_marcin_curylo Coverage Results" MODIFIED="1608047449633" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cipher" />
     <SUITE FILE_PATH="coverage/py_creator$elements.coverage" NAME="elements Coverage Results" MODIFIED="1605307528082" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$creator.coverage" NAME="creator Coverage Results" MODIFIED="1608489094593" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$simulation.coverage" NAME="simulation Coverage Results" MODIFIED="1607029544585" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$play_fair_marcin_curylo__1_.coverage" NAME="play_fair_marcin_curylo (1) Coverage Results" MODIFIED="1606814920874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/cipher" />
+    <SUITE FILE_PATH="coverage/py_creator$tk_editor.coverage" NAME="tk_editor Coverage Results" MODIFIED="1607450031726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/window" />
     <SUITE FILE_PATH="coverage/py_creator$Atbash_MCurylo.coverage" NAME="Atbash_MCurylo Coverage Results" MODIFIED="1604530953792" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$xml_loader.coverage" NAME="xml_loader Coverage Results" MODIFIED="1607278273253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$decorators.coverage" NAME="decorators Coverage Results" MODIFIED="1604606870039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/py_creator$xml_test.coverage" NAME="xml_test Coverage Results" MODIFIED="1607289984688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/xml_handler" />
+    <SUITE FILE_PATH="coverage/py_creator$gui.coverage" NAME="player Coverage Results" MODIFIED="1607445912848" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$player__1_.coverage" NAME="player (1) Coverage Results" MODIFIED="1607537393261" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$xml_test.coverage" NAME="xml_test Coverage Results" MODIFIED="1607424656508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/xml_handler" />
     <SUITE FILE_PATH="coverage/py_creator$temp.coverage" NAME="temp Coverage Results" MODIFIED="1603823054464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/py_creator$test.coverage" NAME="test Coverage Results" MODIFIED="1607291735996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/py_creator$test.coverage" NAME="test Coverage Results" MODIFIED="1608210932860" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$play_fair_marcin_curylo.coverage" NAME="play_fair_marcin_curylo Coverage Results" MODIFIED="1605030782380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$trigger.coverage" NAME="trigger Coverage Results" MODIFIED="1603914299512" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/py_creator$rot13_marcin_curylo.coverage" NAME="rot13_marcin_curylo Coverage Results" MODIFIED="1605030791226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

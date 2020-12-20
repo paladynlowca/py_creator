@@ -2,7 +2,7 @@ from typing import Dict
 from xml.etree.ElementTree import Element, tostring
 
 from constans import *
-from engine.game import Game
+from engine.engine_main import Game
 from xml_handler.xml_build_element import BuildScene, BuildOption, BuildAction, BuildCondition, BuildVariable, \
     BuildElement
 from xml_handler.xml_constants import *
@@ -23,7 +23,8 @@ class XMLSaver:
     def prepare(self):
         self._root.set('format', 'py_creator')
         self._root.set('version', '0.1')
-        for frame in self._game.element_frames:
+        self._root.set('name', self._game.name)
+        for frame in self._game.elements():
             builder: BuildElement = BUILDERS[frame.type](frame)
             builder.build()
             self._root.append(builder.xml)

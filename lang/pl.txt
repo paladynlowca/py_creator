@@ -1,0 +1,110 @@
+# General
+gen_true = Prawda
+gen_false = Fałsz
+
+
+scene = Scena
+option = Wybór
+action = Akcja
+condition = Warunek
+variable = Zmienna
+
+target_action = Zmiana sceny
+variable_action = Zmaina wartości
+
+bool_condition = Warunek logiczny
+int_condition = Warunek wartości
+multi_condition = Warunek złożony
+
+# Variable change types
+variable_increase = Zwiększenie wartości
+variable_decrease = Zmniejszenie wartości
+variable_set = Ustawienie wartości
+variable_inverse = Odwrócenie wartości
+
+# Condition types
+equal = Równe
+different = Różne
+more = Większe
+more_equal = Większe lub równe
+less = Mniejse
+less_equal = Mniejsze lub równe
+
+# Multi condition types
+multi_and = Wszystkie z warunków
+multi_or = Conajmniej jeden z warunków
+
+
+# Tom edit menu
+tm_add = Nowy element
+tm_del = Usuń element
+tm_save = Zapisz
+tm_close = Zamknij
+
+tm_ask_close = Scenariusz nie jest zapisany. Na pewno chcesz wyjść?
+tm_ask_delete = Na pewno chesz usunąć ten element?
+tm_ask_del_force = Istnieją powiązania z innymi elementami. Czy mimo to chcesz usunąć ten element?
+tm_error_no_element = Nie wybrano elementu!
+tm_value_not_set = Nie wybrano wartości!
+
+
+# Side elements list
+# Buttons
+sl_scenes = Sceny
+sl_options = Wybory
+sl_actions = Akcje
+sl_conditions = Warunki
+sl_variables = Zmienne
+
+
+# Main panel
+mp_change = Zmień
+
+mp_id = Identyfikator
+mp_type = Typ
+mp_sub_type = Podtyp
+mp_title = Tytuł
+mp_desc = Opis
+mp_text = Treść
+mp_value = Wartość
+mp_time_increase = Czas trwania
+mp_change_type = Typ zmiany
+mp_change_value = Wartość zmiany
+mp_test_type_ = Rodzaj sprawdzania
+mp_expected_value_ = Oczekiwana wartość
+mp_default_increase = Domyślna wartość powiększenia
+mp_min = Wartość maksymalna
+mp_max = Wartość minimalna
+
+# Single relations
+mp_scene = Przypisana scena
+mp_variable = Przypisana zmienna
+
+# Multi relations
+mp_options = Przypisane wybory
+mp_actions = Przypisane akcje
+mp_conditions = Przypisane warunki
+
+
+# Popup windows
+pu_new_value = Nowa wartość parametru
+pu_curr_elements = Aktulanie wybrano
+pu_choice_elements = Możliwe wybory
+
+pu_choose = Wybierz
+
+pu_confirm = Zatwierdź
+pu_cancel = Powrót
+
+# List select values
+pu_ct_increase = Zwiększ o wartość
+pu_ct_decrease = Zmniejsz o wartość
+pu_ct_set = Ustaw wartość
+pu_ct_inverse = Odwróć wartość logiczną
+
+pu_error_int = Wprowadzona wartość nie jest liczbą!
+
+pu_files_list = Lista istniejących scenariuszy
+pu_file_name = Nazwa pliku
+pu_no_file_name = Brak nazwy pliku!
+pu_file_invalid_symbols = Nazwa pliku nie może zawierać symboli:

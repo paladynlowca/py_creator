@@ -3,7 +3,7 @@ from typing import Optional, Set
 
 from constans import *
 from data_frame import ElementFrame
-from engine.element import Element, Code
+from engine.engine_element import Element, Code
 from exceptions import *
 
 

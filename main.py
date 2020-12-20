@@ -1,8 +1,8 @@
 from constans import *
 from data_frame import SceneFrame
-from engine.element import Code
-from engine.game import Game
-from xml_handler.xml_loader import XMLLoader
+from engine.engine_element import Code
+from engine.engine_main import Game
+from xml_handler.xml_saver import XMLSaver
 
 if __name__ == '__main__':
     game = Game()
@@ -92,7 +92,9 @@ if __name__ == '__main__':
 
     game.change_scene(scene_hall)
 
-    file = XMLLoader(game, 'test3')
+    file = XMLSaver(game, 'test3')
+    file.prepare()
+    file.save()
     exit(0)
     # ------------------------------------------------------------------------------------------------------------------
 

@@ -1,4 +1,5 @@
 ELEMENT = 'element'
+REMOVED = 'removed'
 SCENE = 'scene'
 OPTION = 'option'
 

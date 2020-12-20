@@ -2,7 +2,7 @@ from typing import Optional, Union
 
 from constans import *
 from data_frame import ElementFrame
-from engine.element import Code, ConditionUsing
+from engine.engine_element import Code, ConditionUsing
 from exceptions import *
 
 
@@ -20,7 +20,7 @@ class Action(ConditionUsing):
         self._type = ACTION
         self._action_type: Optional[str] = None
         self._relations_passive.update({OPTION, VARIABLE})
-        self._time_increase = None
+        self._time_increase = 1
         pass
 
     @property
@@ -54,7 +54,9 @@ class Action(ConditionUsing):
         return None
 
     def build(self, _time_increase_: int = None, **kwargs):
-        self.time_increase = _time_increase_
+        if _time_increase_ is not None:
+            self.time_increase = _time_increase_
+            pass
         pass
 
 

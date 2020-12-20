@@ -2,12 +2,12 @@ from copy import copy
 from typing import Optional, Dict, Union
 
 from constans import *
-from engine.action import Action, TargetAction, VariableAction
-from engine.condition import Condition, BoolCondition, IntCondition, MultiCondition
-from engine.element import Code
-from engine.option import Option
-from engine.scene import Scene
-from engine.variable import BoolVariable, IntVariable
+from engine.engine_el_action import Action, TargetAction, VariableAction
+from engine.engine_el_condition import Condition, BoolCondition, IntCondition, MultiCondition
+from engine.engine_el_option import Option
+from engine.engine_el_scene import Scene
+from engine.engine_el_variable import BoolVariable, IntVariable
+from engine.engine_element import Code
 from exceptions import *
 
 # Short type hint for any elements types.
@@ -141,9 +141,22 @@ class Elements(dict):
         :raises ExistingRelations: If element have existing relations.
         """
         element = self[_key_]
-        if element.relations:
+        if len(element.relations):
             raise ExistingRelationsError(_key_.code, element.relations)
-        super().__delitem__(_key_)
+        super().__delitem__(_key_.code)
+        pass
+
+    def __iter__(self):
+        self.__iterator = iter(super().__iter__())
+        return self
+
+    def __next__(self) -> Code:
+        try:
+            code_str = next(self.__iterator)
+            return Code(code_str, self.check_type(code_str))
+        except StopIteration:
+            del self.__iterator
+            raise StopIteration()
         pass
 
     def __del__(self):
@@ -151,7 +164,7 @@ class Elements(dict):
         Clearing all relations on delete.
         """
         for code in self:
-            self.clear_relations(self[Code(code, self.check_type(code))].code)
+            self.clear_relations(code)
             pass
         pass
     pass

@@ -1,5 +1,5 @@
 from data_frame import SceneFrame
-from engine.game import Game
+from engine.engine_main import Game
 from xml_handler.xml_loader import XMLLoader
 
 if __name__ == '__main__':

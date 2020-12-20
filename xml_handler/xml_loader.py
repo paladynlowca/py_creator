@@ -2,8 +2,8 @@ from typing import Dict, List
 from xml.etree.ElementTree import Element, parse
 
 from constans import *
-from engine.element import Code
-from engine.game import Game
+from engine.engine_element import Code
+from engine.engine_main import Game
 from xml_handler.xml_constants import *
 from xml_handler.xml_parse_elements import ParseScene, ParseOption, ParseAction, ParseCondition, ParseVariable, \
     ParseElement

@@ -119,7 +119,7 @@ class Element:
         :return: Element relations.
         :rtype: set
         """
-        return self._relations
+        return self._relations.copy()
 
     @property
     def element_frame(self):

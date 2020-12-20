@@ -1,6 +1,6 @@
-/cipher/
-/venv/
-/.idea/
-/__pycache__/
-/test.py
-/simulation.py
+cipher/*.py
+venv/*
+.idea/*
+__pycache__/*
+test.py
+simulation.py

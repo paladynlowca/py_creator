@@ -58,3 +58,7 @@ class OutOfRangeError(Exception):
         return f'Value >{self._value}< is not between >{self._min}< and >{self._max}<'
 
     pass
+
+
+class ElementNotSet(Exception):
+    pass

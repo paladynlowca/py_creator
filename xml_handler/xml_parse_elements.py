@@ -2,8 +2,8 @@ from typing import Optional, Dict, List, Set
 from xml.etree.ElementTree import Element
 
 from constans import *
-from engine.element import Code
-from engine.game import Game
+from engine.engine_element import Code
+from engine.engine_main import Game
 from xml_handler.xml_constants import *
 
 
@@ -110,7 +110,7 @@ class ParseVariable(ParseElement):
         super().__init__(_element_, _game_)
         self._kwarg_tags.update(**{XML_PRECISE_TYPE: '_precise_type_', XML_TEXT: '_text_', XML_VALUE: '_value_',
                                    XML_DEFAULT_INCREASE: '_default_increase_', XML_VALUE_MIN: '_min_',
-                                   XML_VALUE_MAX: '_min_'})
+                                   XML_VALUE_MAX: '_max_'})
         self._relation_tags.update({ACTION, CONDITION})
         pass
 

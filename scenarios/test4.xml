@@ -1,4 +1,4 @@
-<scenario format="py_creator" name="default" version="0.1">
+<scenario format="py_creator" name="New default" version="0.1">
     <element>
         <code>__time__</code>
         <type>variable</type>
@@ -71,14 +71,14 @@
         <code>go_entry</code>
         <type>action</type>
         <precise_type>target_action</precise_type>
-        <time_increase>1</time_increase>
+        <time_increase>None</time_increase>
         <scene>entry</scene>
     </element>
     <element>
         <code>go_kitchen</code>
         <type>action</type>
         <precise_type>target_action</precise_type>
-        <time_increase>1</time_increase>
+        <time_increase>None</time_increase>
         <scene>kitchen</scene>
     </element>
     <element>
@@ -92,14 +92,14 @@
         <code>go_street</code>
         <type>action</type>
         <precise_type>target_action</precise_type>
-        <time_increase>1</time_increase>
+        <time_increase>None</time_increase>
         <scene>street</scene>
     </element>
     <element>
         <code>change_bool</code>
         <type>action</type>
         <precise_type>variable_action</precise_type>
-        <time_increase>1</time_increase>
+        <time_increase>None</time_increase>
         <change_type>variable_inverse</change_type>
         <change_value>None</change_value>
         <variable>var_bool_1</variable>

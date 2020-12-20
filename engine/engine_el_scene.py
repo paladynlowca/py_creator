@@ -4,7 +4,7 @@ from typing import Optional, List
 
 from constans import *
 from data_frame import ElementFrame
-from engine.element import Element, Code
+from engine.engine_element import Element, Code
 
 
 class Scene(Element):

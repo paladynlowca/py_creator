@@ -1,0 +1,127 @@
+from tkinter import Frame, N, NE
+from typing import Optional
+
+from data_frame import ElementFrame
+from engine.engine_element import Code, ElementNotSet
+from engine.engine_main import Game
+from window.tk_e_edit_list import TkEditorSideList
+from window.tk_e_edit_main import TkEditorElement
+from window.tk_settings import register_function
+
+
+class TkEditorEdit(Frame):
+    def __init__(self, _master_: Frame, _game_: Game):
+        super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove")
+        register_function('on_item', self._on_item)
+        register_function('change_value', self._game_change_value)
+        register_function('add_relation', self._game_add_relation)
+        register_function('del_relation', self._game_del_relation)
+        register_function('remove_element', self._game_remove_current_element)
+        register_function('add_element', self._game_add_element)
+
+        self._master = _master_
+        self._main_panel: Optional[TkEditorElement] = None
+        self._game = _game_
+        self._build()
+        pass
+
+    def place(self):
+        self._master.update()
+        super().place(in_=self._master, anchor=N, relx=0.5, y=50)
+        self.resize()
+        pass
+
+    def resize(self):
+        width = self._master.winfo_width()
+        height = self._master.winfo_height()
+        self.config(width=width, height=height - 50)
+        self._side_list.resize()
+        if self._main_panel is not None:
+            self._main_panel.resize()
+            pass
+        pass
+
+    def current(self):
+        if self._main_panel is not None:
+            return self._main_panel.code
+        pass
+
+    def del_current(self):
+        self._change_element(None)
+        pass
+
+    def _build(self):
+        self._side_list = TkEditorSideList(self, self._game.elements(), self._change_element)
+        self._side_list.place(in_=self, anchor=NE, relx=1, width=250, relheight=1)
+
+        pass
+
+    def _change_element(self, _data_frame_: Optional[ElementFrame]):
+        if self._main_panel is not None:
+            self._main_panel.destroy()
+            del self._main_panel
+            self._main_panel = None
+            pass
+        if _data_frame_ is None:
+            return
+        self._main_panel = TkEditorElement(self, _data_frame_)
+        self._main_panel.resize()
+        self._main_panel.place(in_=self)
+        pass
+
+    def _fill_bottom_panel(self, _code_: str, _type_: str):
+        pass
+
+    def _game_add_element(self, _code_: str, _type_: str, _sub_type_: Optional[str]):
+        code = Code(_code_, _type_)
+        self._game.build_element(code, _precise_type_=_sub_type_)
+        elements = self._game.elements(True)
+        self._change_element(elements[0][0])
+        self._side_list.update_data(*elements)
+        pass
+
+    def _game_remove_current_element(self, _force_: bool = False):
+        element = self.current()
+        if element is None:
+            raise ElementNotSet()
+        self._game.remove_element(element, _force_)
+        self._change_element(None)
+        el = self._game.elements(True)
+        self._side_list.update_data(*el)
+        pass
+
+    def _game_change_value(self, _code_: Code, _key_word_: str, _new_value_):
+        self._game.build_element(_code_, **{_key_word_: _new_value_})
+        elements = self._game.elements(True)
+        self._change_element(elements[0][len(elements[0]) - 1])
+        self._side_list.update_data(*elements)
+        return
+
+    def _game_add_relation(self, _active_: Code, _passive_: Code):
+        self._game.add_relation(_active_, _passive_)
+        elements = self._game.elements(True)
+        for i in elements[0]:
+            if i == _active_:
+                self._change_element(i)
+                break
+            pass
+        self._side_list.update_data(*elements)
+
+    def _game_del_relation(self, _active_: Code, _passive_: Code):
+        self._game.del_relation(_active_, _passive_)
+        elements = self._game.elements(True)
+        for i in elements[0]:
+            if i == _active_:
+                self._change_element(i)
+                break
+            pass
+        self._side_list.update_data(*elements)
+
+    def _on_item(self, code):
+        # print(code)
+        pass
+
+    def _change_property(self, code):
+        pass
+
+    pass

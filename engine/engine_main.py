@@ -1,10 +1,10 @@
-from typing import Dict, Optional, Union, Any
+from typing import Dict, Optional, Union, Any, List
 
 from constans import *
 from data_frame import SceneFrame
-from engine.condition import Condition
-from engine.element import Code
-from engine.elements import Elements, TYPES
+from engine.engine_el_condition import Condition
+from engine.engine_element import Code
+from engine.engine_elements import Elements, TYPES
 from exceptions import TypeCollisionError
 
 
@@ -13,12 +13,16 @@ class Game:
     Game engine class
     """
 
-    def __init__(self):
+    def __init__(self, _play_only_: bool = True):
+        self._play_only = _play_only_
         self._scenario_name = 'default'
         # List of all game elements (scenes, actions, ets).
         self._elements: Union[Dict[Any, TYPES], Elements] = Elements()
         # Switch change allow graphic game mode.
         self._allow_graphics = False  # Not fully implemented.
+        self._saved = True
+        self._updated_elements: List[Code] = list()
+        self._deleted_elements: List[Code] = list()
 
         # Current active scene.
         self._current_scene: Optional[Code] = None
@@ -46,39 +50,49 @@ class Game:
                            _img_=scene.image)
         for code in self[self._current_scene].options:
             option = self[code]
-            if self.check_conditions(code):
+            if self._check_conditions(code):
                 frame.add_option(code, option.text)
                 pass
             pass
         return frame
 
     @property
-    def element_frames(self):
+    def saved(self):
+        return self._saved
+
+    @saved.setter
+    def saved(self, _value_):
+        self._saved = bool(_value_)
+
+    def element(self, _code_: Code):
+        frame = self[_code_].element_frame
+        frame.add_property('code', _code_.code)
+        frame.add_property('type', _code_.type)
+        return frame
+
+    def elements(self, _new_only_: bool = False):
         frames = list()
-        for element in self._elements:
-            frame = self[Code(element, self._elements.check_type(element))].element_frame
-            frame.add_property('code', element)
-            frame.add_property('type', self._elements.check_type(element))
-            frames.append(frame)
+        if _new_only_:
+            to_iter = self._updated_elements
             pass
+        else:
+            to_iter = self._elements
+            pass
+        for code in to_iter:
+            frames.append(self.element(code))
+            pass
+        if _new_only_:
+            deleted = list()
+            for code in self._deleted_elements:
+                deleted.append(code)
+                pass
+            frames = (frames, deleted)
+            pass
+        self._updated_elements.clear()
+        self._deleted_elements.clear()
         return frames
 
-    def create_element(self, _code_: Code) -> bool:
-        """
-        Creating game elements. If element with this code exist, won't change anything.
-        :param _code_: Element to create
-        :type _code_: Code
-        :return: Success of operation.
-        :rtype: bool
-        """
-        type_ = self._elements.check_type(_code_.code)
-        if type_ is None:
-            self._elements.add(_code_)
-            return True
-        else:
-            return False
-
-    def add_relation(self, _active_: Code, _passive_: Code) -> bool:
+    def add_relation(self, _active_: Code, _passive_: Union[Code, str]) -> bool:
         """
         Adding relation between two elements.
         :param _active_: Active part of relation, witch use second element in some way.
@@ -88,6 +102,13 @@ class Game:
         :return: Success of operation.
         :rtype: bool
         """
+        if self._play_only:
+            return False
+        if type(_passive_) is str:
+            _passive_ = Code(_passive_, self._elements.check_type(_passive_))
+            pass
+        self._updated_elements.extend({_active_, _passive_})
+        self.saved = False
         return self._elements.add_relations(_active_, _passive_)
 
     def del_relation(self, _active_: Code, _passive_: Code) -> bool:
@@ -100,6 +121,10 @@ class Game:
         :return: Success of operation.
         :rtype: bool
         """
+        if self._play_only:
+            return False
+        self._updated_elements.extend({_active_, _passive_})
+        self.saved = False
         return self._elements.del_relations(_active_, _passive_)
 
     def change_scene(self, _scene_: Code) -> bool:
@@ -117,11 +142,29 @@ class Game:
             return False
         pass
 
+    def remove_element(self, _code_: Code, _force_: bool = False):
+        if self._play_only:
+            return False
+        relations = self[_code_].relations
+        if _force_:
+            self._elements.clear_relations(_code_)
+            pass
+        del self._elements[_code_]
+        self.saved = False
+        self._deleted_elements.append(_code_)
+        for element in relations:
+            self._updated_elements.append(element)
+        pass
+
     def build_element(self, _code_: Code, _precise_type_: str = None, **kwargs):
+        if self._play_only:
+            return False
         if self._elements.check_type(_code_.code) is None and _code_.type in TYPES_LIST:
             self._elements.add(_code_ if _precise_type_ is None else Code(_code_.code, _precise_type_))
             pass
+        self._updated_elements.extend({_code_})
         self[_code_].build(**kwargs)
+        self.saved = False
         pass
 
     def close(self):
@@ -137,7 +180,7 @@ class Game:
         :param _option_: Option choose by player.
         :type _option_: Code
         """
-        if _option_.type == OPTION and _option_ in self.scene.options and self.check_conditions(_option_):
+        if _option_.type == OPTION and _option_ in self.scene.options and self._check_conditions(_option_):
             for code in self[_option_].actions:
                 self._execute_action(code)
             pass
@@ -145,7 +188,7 @@ class Game:
 
     def _execute_action(self, _action_: Code):
         action = self[_action_]
-        if self.check_conditions(_action_):
+        if self._check_conditions(_action_):
             if action.action_type == TARGET_ACTION:
                 self.change_scene(action.scene)
                 pass
@@ -174,7 +217,7 @@ class Game:
             pass
         pass
 
-    def check_conditions(self, _parent_: Code) -> bool:
+    def _check_conditions(self, _parent_: Code) -> bool:
         value = True
         for condition_code in self[_parent_].conditions:
             value = value and self._check_condition(condition_code)

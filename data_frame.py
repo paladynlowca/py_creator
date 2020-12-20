@@ -1,14 +1,10 @@
 from pathlib import Path
 from typing import Dict, Optional, List
 
-from engine.element import Code
+from engine.engine_element import Code
 
 
 class ElementFrame:
-    """
-    Class contains all data use for display scene.
-    """
-
     def __init__(self, **kwargs):
         self.code = None
         self.type = None
@@ -35,6 +31,17 @@ class ElementFrame:
             self.relations.append(element)
             pass
         pass
+
+    def __eq__(self, other):
+        if type(other) in (type(self), Code) and other.code == self.code and other.type == self.type:
+            return True
+        return False
+
+    def __str__(self):
+        return f'ElementFrame with code >{self.code}< and type >{self.type}<.'
+
+    def __repr__(self):
+        return self.__str__()
 
     pass
 
