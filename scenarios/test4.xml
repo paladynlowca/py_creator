@@ -13,7 +13,6 @@
         <type>scene</type>
         <title>Korytarz</title>
         <description>Jesteś w dość krótkim korytarzu.</description>
-        <image>None</image>
         <option>to_entry</option>
         <option>to_kitchen</option>
     </element>
@@ -22,7 +21,6 @@
         <type>scene</type>
         <title>Ganek</title>
         <description>To zdecydowanie jest ganek, możesz wyjść na zewnątrz.</description>
-        <image>None</image>
         <option>to_hall</option>
         <option>to_street</option>
     </element>
@@ -31,14 +29,12 @@
         <type>scene</type>
         <title>Ulica</title>
         <description>Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.</description>
-        <image>None</image>
     </element>
     <element>
         <code>kitchen</code>
         <type>scene</type>
         <title>Kuchnia.</title>
         <description>Wszedłeś do kuchni. Nie ma tu nic ciekawego.</description>
-        <image>None</image>
         <option>to_hall</option>
     </element>
     <element>

@@ -1,4 +1,4 @@
-<scenario format="py_creator" name="default" version="0.1">
+<scenario format="py_creator" name="Testowo" version="0.1">
     <element>
         <code>__time__</code>
         <type>variable</type>
@@ -13,7 +13,6 @@
         <type>scene</type>
         <title>Korytarz</title>
         <description>Jesteś w dość krótkim korytarzu.</description>
-        <image>None</image>
         <option>to_entry</option>
         <option>to_kitchen</option>
     </element>
@@ -22,7 +21,6 @@
         <type>scene</type>
         <title>Ganek</title>
         <description>To zdecydowanie jest ganek, możesz wyjść na zewnątrz.</description>
-        <image>None</image>
         <option>to_hall</option>
         <option>to_street</option>
     </element>
@@ -31,14 +29,12 @@
         <type>scene</type>
         <title>Ulica</title>
         <description>Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.</description>
-        <image>None</image>
     </element>
     <element>
         <code>kitchen</code>
         <type>scene</type>
         <title>Kuchnia.</title>
         <description>Wszedłeś do kuchni. Nie ma tu nic ciekawego.</description>
-        <image>None</image>
         <option>to_hall</option>
     </element>
     <element>
@@ -162,6 +158,7 @@
     </element>
     <settings>
         <init_scene>hall</init_scene>
-        <scenario_name>default</scenario_name>
+        <scenario_name>Testowo</scenario_name>
+        <author>MC</author>
     </settings>
 </scenario>

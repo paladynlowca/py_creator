@@ -57,6 +57,8 @@ class Option(ConditionUsing):
         :return: Success of operation.
         :rtype: bool
         """
+        if self.code == Code('__game_over__', OPTION) and not _passive_:
+            return False
         if not _passive_:
             if _code_.type == ACTION:
                 return self._list_append(_code_, self._actions)

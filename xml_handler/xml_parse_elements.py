@@ -66,7 +66,7 @@ class ParseElement:
 class ParseScene(ParseElement):
     def __init__(self, _element_: Element, _game_: Game):
         super().__init__(_element_, _game_)
-        self._kwarg_tags.update(**{XML_TITLE: '_title_', XML_DESCRIPTION: '_description_', XML_IMAGE: '_image_'})
+        self._kwarg_tags.update(**{XML_TITLE: '_title_', XML_DESCRIPTION: '_description_'})
         self._relation_tags.update({OPTION})
         pass
 

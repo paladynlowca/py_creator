@@ -3,13 +3,15 @@ from os import listdir
 from os.path import isfile
 from tkinter import Frame, N, Button, Listbox, Scrollbar, NE, NW, DISABLED, NORMAL
 
+from window.tk_settings import functions
+
 
 class TkEditorMain(Frame):
-    def __init__(self, _master_: Frame, _open_file_: callable):
+    def __init__(self, _master_: Frame):
         super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove")
         self._master = _master_
         self._scenarios_path = 'scenarios/'
-        self._open_function = _open_file_
+        self._open_function = functions['new_game']
 
         self._build()
         self._get_scenarios()

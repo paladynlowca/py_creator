@@ -52,7 +52,7 @@ class BuildElement:
 class BuildScene(BuildElement):
     def __init__(self, _element_: ElementFrame):
         super().__init__(_element_)
-        self._kwarg_tags.update(**{'_title_': XML_TITLE, '_description_': XML_DESCRIPTION, '_image_': XML_IMAGE})
+        self._kwarg_tags.update(**{'_title_': XML_TITLE, '_description_': XML_DESCRIPTION})
         self._relation_tags.update({OPTION})
         pass
 

@@ -49,6 +49,10 @@ class XMLLoader:
         if name is not None:
             self._game.name = name.text
             pass
+        author: Element = settings.find(XML_AUTHOR)
+        if author is not None:
+            self._game.author = author.text
+            pass
         init_scene: Element = settings.find(XML_INIT_SCENE)
         if init_scene is not None:
             self._game.change_scene(Code(init_scene.text, SCENE))

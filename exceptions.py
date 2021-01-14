@@ -62,3 +62,15 @@ class OutOfRangeError(Exception):
 
 class ElementNotSet(Exception):
     pass
+
+
+class DefaultSceneNotSet(Exception):
+    pass
+
+
+class ConfigParseError(Exception):
+    pass
+
+
+class GameOver(Exception):
+    pass

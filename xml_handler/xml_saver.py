@@ -3,6 +3,7 @@ from xml.etree.ElementTree import Element, tostring
 
 from constans import *
 from engine.engine_main import Game
+from exceptions import *
 from xml_handler.xml_build_element import BuildScene, BuildOption, BuildAction, BuildCondition, BuildVariable, \
     BuildElement
 from xml_handler.xml_constants import *
@@ -31,11 +32,19 @@ class XMLSaver:
             pass
         settings = Element(XML_SETTINGS)
         init_scene = Element(XML_INIT_SCENE)
+        if self._game.scene is None:
+            raise DefaultSceneNotSet
         init_scene.text = self._game.scene.code.code
         settings.append(init_scene)
+
         scenario = Element(XML_NAME)
         scenario.text = self._game.name
         settings.append(scenario)
+
+        author = Element(XML_AUTHOR)
+        author.text = self._game.author
+        settings.append(author)
+
         self._root.append(settings)
         pass
 

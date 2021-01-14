@@ -6,7 +6,7 @@ from tkscrolledframe import ScrolledFrame
 from constans import *
 from data_frame import ElementFrame
 from engine.engine_element import Code
-from window.tk_e_edit_popup import TextPopup, IntPopup, BoolPopup, SinglePopup, MultiPopup, SelectPopup
+from window.tk_e_edit_variables import TextPopup, IntPopup, BoolPopup, SinglePopup, MultiPopup, SelectPopup
 from window.tk_e_item import Item
 from window.tk_settings import lang
 
@@ -27,6 +27,7 @@ class TkEditorElement(ScrolledFrame):
             self._input_field: Optional[Widget] = None
             self._change: Optional[Button] = None
             self._list_end = 0
+            self._items = list()
             pass
 
         def build(self, _position_):
@@ -48,16 +49,21 @@ class TkEditorElement(ScrolledFrame):
                 pass
             elif self._type.startswith(('list', 'single')):
                 self._value_field = Frame(master=self, bg='darkgray', width=365, height=25)
+                self._value_field.place(in_=self, y=7, x=13)
                 self._value_field.update()
-                position = 0
-                row = 0
-                for item_code in self._value:
-                    item = Item(self._value_field, item_code)
-                    item.update()
-                    self._value_list.append(item)
-                    position = position + 10 + item.winfo_width()
-                    item.place(in_=self._value_field, x=position, y=5 + row * 20)
-                    pass
+                # for item_code in self._value:
+                #     item = Item(self._value_field, item_code)
+                #     item.update()
+                #     self._value_list.append(item)
+                #     pos_x = pos_x + 10 + item.winfo_width()
+                #     item.place(in_=self._value_field, x=pos_x, y=5 + row * 20)
+                #     pass
+                for code in self._value:
+                    self._items.append(Item(self._value_field, code))
+                pos_y = self._resize_list()
+                self._value_field.config(height=25 + pos_y)
+                _position_ += pos_y
+                self._value_field.place_forget()
                 pass
             elif self._type.startswith('select'):
                 self._value_field = Label(master=self, text=lang[self._value], bg='darkgray', wraplength=365)
@@ -103,13 +109,24 @@ class TkEditorElement(ScrolledFrame):
             pass
 
         def _resize_list(self):
-            position = 0
-            row = 0
-            for item in self._value_list:
-                item.place(in_=self._value_field, x=position, y=2 + row * 25)
-                position = position + 5 + item.winfo_width()
+            pos_x = 0
+            pos_y = 0
+            for item_name in self._value_field.children.copy():
+                self._value_field.children[item_name].place_forget()
                 pass
-            pass
+            for item in self._items:
+                item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                pos_x += item.winfo_width() + 5
+                if pos_x > self._value_field.winfo_width() - 20:
+                    item.place_forget()
+                    print(self._value_field.winfo_width())
+                    pos_y += 25
+                    pos_x = 0
+                    item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                    pos_x += item.winfo_width() + 5
+                    pass
+                pass
+            return pos_y
 
         def resize(self, _width_: int):
             self._value_field.update()
@@ -118,6 +135,7 @@ class TkEditorElement(ScrolledFrame):
             self._value_field.config(**{'wraplength' if type(self._value_field) is Label else 'width': _width_ - 180})
             if type(self._value_field) is Frame:
                 self._resize_list()
+                self._value_field.config(height=self._resize_list() + 25)
                 pass
 
             pass

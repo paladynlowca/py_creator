@@ -11,10 +11,14 @@ class Item(Label):
 
         self._code = _code_
         self.bind("<Enter>", self._on_entry)
+        self.bind("<Button-1>", self._oc_click)
         pass
 
     def _on_entry(self, _event_):
         functions['on_item'](self._code)
         pass
+
+    def _oc_click(self, _event_):
+        functions['on_item_click'](self._code)
 
     pass

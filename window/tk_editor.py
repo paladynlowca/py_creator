@@ -4,24 +4,26 @@ from typing import Union, Optional
 
 from engine.engine_main import Game
 from window.tk_e_edit import TkEditorEdit
+from window.tk_e_edit_popup import ScenarioNameAuthorPopup
 from window.tk_e_edit_top import TopMenu
 from window.tk_e_main import TkEditorMain
-from window.tk_settings import load_texts, register_function
+from window.tk_settings import register_function, init
 from xml_handler.xml_loader import XMLLoader
 
 
 class TkEditorFrame(Frame):
-    def __init__(self, _master_: Tk, _lang_: str):
+    def __init__(self, _master_: Tk):
         super().__init__(master=_master_, bg='gray')
-        load_texts(_lang_)
+        init()
         register_function('close_game', self._close_game)
+        register_function('new_game', self._build_game)
         self._master = _master_
         self._game: Optional[Game] = None
         self.place(in_=self._master, x=0, y=0)
 
         self._previous_time = 0
 
-        self._menu = TkEditorMain(self, self._build_game)
+        self._menu = TkEditorMain(self)
         self._editor = None
         self._top_menu = None
 
@@ -83,6 +85,13 @@ class TkEditorFrame(Frame):
             loader.load()
             self._game.saved = True
             pass
+        else:
+            self.wait_window(ScenarioNameAuthorPopup(_game_=self._game, _new_=True))
+            if self._game.author is None or self._game.name is None:
+                self._game.close()
+                self._game = None
+                return
+            pass
         self._editor = TkEditorEdit(self, self._game)
         self._top_menu = TopMenu(self, self._game)
         self._to_editor()
@@ -96,6 +105,7 @@ class TkEditorFrame(Frame):
             self._game = None
             self._editor.destroy()
             self._top_menu.destroy()
+            self._top_menu = None
             self._editor = None
             pass
         pass

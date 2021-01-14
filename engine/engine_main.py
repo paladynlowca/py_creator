@@ -5,7 +5,7 @@ from data_frame import SceneFrame
 from engine.engine_el_condition import Condition
 from engine.engine_element import Code
 from engine.engine_elements import Elements, TYPES
-from exceptions import TypeCollisionError
+from exceptions import TypeCollisionError, GameOver
 
 
 class Game:
@@ -14,20 +14,21 @@ class Game:
     """
 
     def __init__(self, _play_only_: bool = True):
-        self._play_only = _play_only_
-        self._scenario_name = 'default'
+        self._play_only = False
+        self._scenario_name = None
+        self._author = None
         # List of all game elements (scenes, actions, ets).
         self._elements: Union[Dict[Any, TYPES], Elements] = Elements()
-        # Switch change allow graphic game mode.
-        self._allow_graphics = False  # Not fully implemented.
         self._saved = True
-        self._updated_elements: List[Code] = list()
+        self._added_elements: List[Code] = list()
         self._deleted_elements: List[Code] = list()
 
         # Current active scene.
         self._current_scene: Optional[Code] = None
 
         self.build_element(Code('__time__', VARIABLE), _precise_type_=INT_VARIABLE)
+        self.build_element(Code('__game_over__', OPTION))
+        self._play_only = _play_only_
         pass
 
     @property
@@ -36,18 +37,35 @@ class Game:
 
     @name.setter
     def name(self, _value_: str):
+        if self._play_only:
+            return
         self._scenario_name = str(_value_)
+        self.saved = False
+        pass
 
     @property
-    def scene(self) -> SceneFrame:
+    def author(self):
+        return self._author
+
+    @author.setter
+    def author(self, _value_):
+        if self._play_only:
+            return
+        self._author = str(_value_)
+        self.saved = False
+        pass
+
+    @property
+    def scene(self) -> Optional[SceneFrame]:
         """
         Preparing scene data for user interface handler.
         :return: Current scene data.
         :rtype: SceneFrame
         """
+        if self._current_scene is None:
+            return None
         scene = self[self._current_scene]
-        frame = SceneFrame(_code_=self._current_scene, _title_=scene.title, _describe_=scene.describe,
-                           _img_=scene.image)
+        frame = SceneFrame(_code_=self._current_scene, _title_=scene.title, _describe_=scene.describe)
         for code in self[self._current_scene].options:
             option = self[code]
             if self._check_conditions(code):
@@ -63,6 +81,7 @@ class Game:
     @saved.setter
     def saved(self, _value_):
         self._saved = bool(_value_)
+        pass
 
     def element(self, _code_: Code):
         frame = self[_code_].element_frame
@@ -70,10 +89,10 @@ class Game:
         frame.add_property('type', _code_.type)
         return frame
 
-    def elements(self, _new_only_: bool = False):
+    def elements(self, _new_only_: bool = False, _codes_only_: bool = False):
         frames = list()
         if _new_only_:
-            to_iter = self._updated_elements
+            to_iter = self._added_elements
             pass
         else:
             to_iter = self._elements
@@ -88,7 +107,7 @@ class Game:
                 pass
             frames = (frames, deleted)
             pass
-        self._updated_elements.clear()
+        self._added_elements.clear()
         self._deleted_elements.clear()
         return frames
 
@@ -107,7 +126,6 @@ class Game:
         if type(_passive_) is str:
             _passive_ = Code(_passive_, self._elements.check_type(_passive_))
             pass
-        self._updated_elements.extend({_active_, _passive_})
         self.saved = False
         return self._elements.add_relations(_active_, _passive_)
 
@@ -123,7 +141,6 @@ class Game:
         """
         if self._play_only:
             return False
-        self._updated_elements.extend({_active_, _passive_})
         self.saved = False
         return self._elements.del_relations(_active_, _passive_)
 
@@ -137,6 +154,7 @@ class Game:
         """
         try:
             self._current_scene = self[_scene_].code
+            self.saved = False
             return True
         except KeyError:
             return False
@@ -145,24 +163,19 @@ class Game:
     def remove_element(self, _code_: Code, _force_: bool = False):
         if self._play_only:
             return False
-        relations = self[_code_].relations
         if _force_:
             self._elements.clear_relations(_code_)
             pass
         del self._elements[_code_]
         self.saved = False
         self._deleted_elements.append(_code_)
-        for element in relations:
-            self._updated_elements.append(element)
         pass
 
     def build_element(self, _code_: Code, _precise_type_: str = None, **kwargs):
-        if self._play_only:
-            return False
         if self._elements.check_type(_code_.code) is None and _code_.type in TYPES_LIST:
             self._elements.add(_code_ if _precise_type_ is None else Code(_code_.code, _precise_type_))
+            self._added_elements.append(_code_)
             pass
-        self._updated_elements.extend({_code_})
         self[_code_].build(**kwargs)
         self.saved = False
         pass
@@ -180,6 +193,8 @@ class Game:
         :param _option_: Option choose by player.
         :type _option_: Code
         """
+        if _option_ == Code('__game_over__', OPTION):
+            raise GameOver
         if _option_.type == OPTION and _option_ in self.scene.options and self._check_conditions(_option_):
             for code in self[_option_].actions:
                 self._execute_action(code)

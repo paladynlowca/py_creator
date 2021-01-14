@@ -13,11 +13,13 @@ class TkEditorEdit(Frame):
     def __init__(self, _master_: Frame, _game_: Game):
         super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove")
         register_function('on_item', self._on_item)
+        register_function('on_item_click', self._on_item_click)
         register_function('change_value', self._game_change_value)
         register_function('add_relation', self._game_add_relation)
         register_function('del_relation', self._game_del_relation)
         register_function('remove_element', self._game_remove_current_element)
         register_function('add_element', self._game_add_element)
+        register_function('current_element', self.current)
 
         self._master = _master_
         self._main_panel: Optional[TkEditorElement] = None
@@ -75,9 +77,8 @@ class TkEditorEdit(Frame):
     def _game_add_element(self, _code_: str, _type_: str, _sub_type_: Optional[str]):
         code = Code(_code_, _type_)
         self._game.build_element(code, _precise_type_=_sub_type_)
-        elements = self._game.elements(True)
-        self._change_element(elements[0][0])
-        self._side_list.update_data(*elements)
+        self._change_element(self._game.element(code))
+        self._side_list.update_data(*self._game.elements(_new_only_=True, _codes_only_=True))
         pass
 
     def _game_remove_current_element(self, _force_: bool = False):
@@ -86,42 +87,30 @@ class TkEditorEdit(Frame):
             raise ElementNotSet()
         self._game.remove_element(element, _force_)
         self._change_element(None)
-        el = self._game.elements(True)
-        self._side_list.update_data(*el)
+        self._side_list.update_data(*self._game.elements(_new_only_=True, _codes_only_=True))
         pass
 
     def _game_change_value(self, _code_: Code, _key_word_: str, _new_value_):
         self._game.build_element(_code_, **{_key_word_: _new_value_})
-        elements = self._game.elements(True)
-        self._change_element(elements[0][len(elements[0]) - 1])
-        self._side_list.update_data(*elements)
+        self._change_element(self._game.element(self.current()))
         return
 
     def _game_add_relation(self, _active_: Code, _passive_: Code):
         self._game.add_relation(_active_, _passive_)
-        elements = self._game.elements(True)
-        for i in elements[0]:
-            if i == _active_:
-                self._change_element(i)
-                break
-            pass
-        self._side_list.update_data(*elements)
+        self._change_element(self._game.element(self.current()))
+        pass
 
     def _game_del_relation(self, _active_: Code, _passive_: Code):
         self._game.del_relation(_active_, _passive_)
-        elements = self._game.elements(True)
-        for i in elements[0]:
-            if i == _active_:
-                self._change_element(i)
-                break
-            pass
-        self._side_list.update_data(*elements)
+        self._change_element(self._game.element(self.current()))
 
-    def _on_item(self, code):
+    def _on_item(self, _code_):
         # print(code)
         pass
 
-    def _change_property(self, code):
+    def _on_item_click(self, _code_):
+        self._change_element(self._game.element(_code_))
+        print('sdsdsd')
         pass
 
     pass

@@ -1,5 +1,4 @@
 from copy import copy
-from pathlib import Path
 from typing import Optional, List
 
 from constans import *
@@ -22,7 +21,6 @@ class Scene(Element):
 
         self.title: Optional[str] = None
         self.describe: Optional[str] = None
-        self._image: Optional[str] = None
         self._relations_passive.add(ACTION)
 
         self._options = list()
@@ -67,25 +65,6 @@ class Scene(Element):
         pass
 
     @property
-    def image(self) -> Path:
-        """
-        Image path property.
-        :return: Image path.
-        :rtype: Path
-        """
-        return self._image
-
-    @image.setter
-    def image(self, _value_: str):
-        """
-        Image path setter.
-        :param _value_: New image path string.
-        :type _value_: str
-        """
-        self._image = _value_
-        pass
-
-    @property
     def options(self) -> List[Code]:
         """
         Options property.
@@ -96,11 +75,11 @@ class Scene(Element):
 
     @property
     def element_frame(self):
-        frame = ElementFrame(_title_=self.title, _description_=self.describe, _image_=self.image)
+        frame = ElementFrame(_title_=self.title, _description_=self.describe)
         frame.add_relation(*self.options)
         return frame
 
-    def build(self, _title_: Optional[str] = None, _description_: Optional[str] = None, _image_: Optional[str] = None):
+    def build(self, _title_: Optional[str] = None, _description_: Optional[str] = None):
         """
         Building scene object.
         :param _title_: Scene title.
@@ -116,9 +95,6 @@ class Scene(Element):
         if _description_ is not None:
             self.describe = _description_
             pass
-        if _image_ is not None:
-            self.image = _image_
-            pass
 
     def add_relation(self, _code_: Code, _passive_=True) -> bool:
         """
@@ -130,6 +106,8 @@ class Scene(Element):
         :return: Success of operation.
         :rtype: bool
         """
+        if self.code == Code('__game_over__', OPTION):
+            return False
         if not _passive_:
             if _code_.type == OPTION:
                 return self._list_append(_code_, self._options)

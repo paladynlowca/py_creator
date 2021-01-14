@@ -5,68 +5,52 @@ from typing import Dict, List
 from tkscrolledframe import ScrolledFrame
 
 from constans import *
-from data_frame import ElementFrame
 from engine.engine_element import Code
 from window.tk_e_item import Item
 from window.tk_settings import lang, register_function
 
 
 class MyListBox(ScrolledFrame):
-    def __init__(self, _master_: Frame, _on_select_):
+    def __init__(self, _master_: Frame):
         super().__init__(master=_master_, bg='darkgray', scrollbars="vertical")
         self.children['!canvas'].config(bg='darkgray')
         self._master = _master_
-        self._on_select = _on_select_
         self._frame: Frame = self.display_widget(Frame)
         self._frame.config(bg='darkgray')
         self._frame.update()
 
-        self._data_frames = list()
+        self._codes = list()
         self._items = list()
         pass
 
     @property
-    def data_frames(self):
-        return self._data_frames
+    def codes(self):
+        return self._codes
 
-    def insert(self, _frame_: ElementFrame):
-        if _frame_ in self._data_frames:
-            item_frame: Frame = self._items[self._data_frames.index(_frame_)]
-            item_frame.children.values().__iter__().__next__().destroy()
-            pass
-        else:
-            self._data_frames.append(_frame_)
-            item_frame = Frame(master=self._frame, width=240, height=30, bg='darkgray')
+    def insert(self, _code_: Code):
+        if _code_ not in self._codes:
+            self._codes.append(_code_)
+            item_frame = Frame(master=self._frame, width=240, height=25, bg='darkgray')
             self._items.append(item_frame)
             item_frame.pack(in_=self._frame)
-            pass
-        item = Item(item_frame, Code(_frame_.code, _frame_.type))
-        item.place(in_=item_frame, x=10, y=5)
-        item.bind("<Button-1>", self._on_select_decorator(_frame_))
+            item = Item(item_frame, _code_)
+            item.place(in_=item_frame, x=10, y=5)
         pass
 
-    def remove(self, _frame_: ElementFrame):
+    def remove(self, _code_: Code):
         try:
-            index = self._data_frames.index(_frame_)
-            del self._data_frames[index]
+            index = self._codes.index(_code_)
+            del self._codes[index]
             self._items[index].destroy()
             del self._items[index]
         except ValueError:
             pass
         pass
-
-    def _on_select_decorator(self, _frame_: ElementFrame):
-        def on_select(_event_):
-            self._on_select(_frame_)
-            pass
-
-        return on_select
-
     pass
 
 
 class TkEditorSideList(Frame):
-    def __init__(self, _master_: Frame, _data_frames_: List[ElementFrame], _on_select_: callable):
+    def __init__(self, _master_: Frame, _codes_: List[Code], _on_select_: callable):
         super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove")
         self._master = _master_
         self._on_select = _on_select_
@@ -75,30 +59,29 @@ class TkEditorSideList(Frame):
         self._listboxes: Dict[str, MyListBox] = dict()
         self._build()
         self.resize()
-        self.update_data(_data_frames_, list())
-        register_function('get_type_frames', self._get_items)
+        self.update_data(_codes_, list())
+        register_function('get_type_elements', self._get_items)
         pass
 
     def resize(self):
         height = self._master.winfo_height()
-        self._listbox_frame.config(height=height - 70)
+        self._listbox_frame.config(height=height - 90)
         pass
 
-    def update_data(self, _data_modified_: List[ElementFrame], _data_deleted_: List[ElementFrame]):
-        for frame in _data_modified_:
-            self._listboxes[frame.type].insert(frame)
+    def update_data(self, _data_added_: List[Code], _data_deleted_: List[Code]):
+        for code in _data_added_:
+            self._listboxes[code.type].insert(code)
             pass
-        for frame in _data_deleted_:
-            self._listboxes[frame.type].remove(frame)
+        for code in _data_deleted_:
+            self._listboxes[code.type].remove(code)
             pass
         pass
 
     def _build(self):
-
         self._listbox_frame = Frame(master=self, height=410)
-        self._listbox_frame.place(relwidth=1, y=60, anchor=NW)
+        self._listbox_frame.place(relwidth=1, y=80, anchor=NW)
         for type_ in self._frames:
-            self._listboxes[type_] = self._listbox = MyListBox(self._listbox_frame, self._on_select)
+            self._listboxes[type_] = self._listbox = MyListBox(self._listbox_frame)
             pass
         self._listbox = self._listboxes[SCENE]
         self._listbox.place(in_=self._listbox_frame, width=248, relheight=1, anchor=SW, relx=0, rely=1)
@@ -135,7 +118,7 @@ class TkEditorSideList(Frame):
         pass
 
     def _get_items(self, _type_: str):
-        return self._listboxes[_type_].data_frames
+        return self._listboxes[_type_].codes
         pass
 
     pass

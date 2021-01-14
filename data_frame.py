@@ -51,8 +51,7 @@ class SceneFrame:
     Class contains all data use for display scene.
     """
 
-    def __init__(self, _code_: Code, _title_: Optional[str] = None, _describe_: Optional[str] = None,
-                 _img_: Optional[Path] = None):
+    def __init__(self, _code_: Code, _title_: Optional[str] = None, _describe_: Optional[str] = None):
         """
         :param _title_: Scene title.
         :type _title_: str
@@ -64,7 +63,6 @@ class SceneFrame:
         self.code = _code_
         self.title: Optional[str] = _title_
         self.describe: Optional[str] = _describe_
-        self.img: Optional[Path] = _img_
         self.options: Dict[Code, str] = dict()
         pass
 

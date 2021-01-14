@@ -16,6 +16,9 @@ bool_condition = Warunek logiczny
 int_condition = Warunek wartości
 multi_condition = Warunek złożony
 
+int_variable = Zmienna liczbowa
+bool_variable = Zmienna logiczna
+
 # Variable change types
 variable_increase = Zwiększenie wartości
 variable_decrease = Zmniejszenie wartości
@@ -38,6 +41,8 @@ multi_or = Conajmniej jeden z warunków
 # Tom edit menu
 tm_add = Nowy element
 tm_del = Usuń element
+tm_scene = Scena startowa
+tm_name_author = Tytuł i autor
 tm_save = Zapisz
 tm_close = Zamknij
 
@@ -46,6 +51,10 @@ tm_ask_delete = Na pewno chesz usunąć ten element?
 tm_ask_del_force = Istnieją powiązania z innymi elementami. Czy mimo to chcesz usunąć ten element?
 tm_error_no_element = Nie wybrano elementu!
 tm_value_not_set = Nie wybrano wartości!
+
+tm_none_name = Scenariusz nie ma tytułu!
+tm_none_author = Scenariusz nie ma autora!
+tm_none_scene = Scenariusz nie ma sceny startowej!
 
 
 # Side elements list
@@ -108,3 +117,8 @@ pu_files_list = Lista istniejących scenariuszy
 pu_file_name = Nazwa pliku
 pu_no_file_name = Brak nazwy pliku!
 pu_file_invalid_symbols = Nazwa pliku nie może zawierać symboli:
+pu_none_default_scene = Nie ustawiono sceny początkowej!
+
+# New scenario options
+new_author = Autor scenariusza
+new_name = Nazwa scenariusza

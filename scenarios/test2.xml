@@ -1,4 +1,18 @@
-<scenario format="py_creator" version="0.1">
+<scenario format="py_creator" name="Testowo" version="0.1">
+    <element>
+        <code>__time__</code>
+        <type>variable</type>
+        <precise_type>int_variable</precise_type>
+        <value>0</value>
+        <value_min>None</value_min>
+        <value_max>None</value_max>
+        <default_increase>1</default_increase>
+    </element>
+    <element>
+        <code>__game_over__</code>
+        <type>option</type>
+        <text>None</text>
+    </element>
     <element>
         <code>hall</code>
         <type>scene</type>
@@ -12,42 +26,145 @@
         <type>scene</type>
         <title>Ganek</title>
         <description>To zdecydowanie jest ganek, możesz wyjść na zewnątrz.</description>
+        <option>to_hall</option>
+        <option>to_street</option>
     </element>
     <element>
         <code>street</code>
         <type>scene</type>
         <title>Ulica</title>
         <description>Wyszedłeś na ulicę wprost pod nadjeżdzający walec drogowy. Umarłeś.</description>
+        <option>__game_over__</option>
     </element>
     <element>
         <code>kitchen</code>
         <type>scene</type>
-        <title>Kuchnia</title>
+        <title>Kuchnia.</title>
         <description>Wszedłeś do kuchni. Nie ma tu nic ciekawego.</description>
+        <option>to_hall</option>
     </element>
-
     <element>
         <code>to_entry</code>
         <type>option</type>
         <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
     </element>
     <element>
         <code>to_kitchen</code>
         <type>option</type>
         <text>Wejdź w drzwi po lewej.</text>
+        <action>go_kitchen</action>
+        <action>change_bool</action>
     </element>
     <element>
         <code>to_hall</code>
         <type>option</type>
         <text>Wróć na korytarz.</text>
+        <action>go_hall</action>
     </element>
     <element>
         <code>to_street</code>
         <type>option</type>
         <text>Wyjdź na zewnątrz.</text>
+        <action>go_street</action>
+    </element>
+    <element>
+        <code>go_entry</code>
+        <type>action</type>
+        <precise_type>target_action</precise_type>
+        <time_increase>1</time_increase>
+        <scene>entry</scene>
+    </element>
+    <element>
+        <code>go_kitchen</code>
+        <type>action</type>
+        <precise_type>target_action</precise_type>
+        <time_increase>1</time_increase>
+        <scene>kitchen</scene>
+    </element>
+    <element>
+        <code>go_hall</code>
+        <type>action</type>
+        <precise_type>target_action</precise_type>
+        <time_increase>5</time_increase>
+        <scene>hall</scene>
+    </element>
+    <element>
+        <code>go_street</code>
+        <type>action</type>
+        <precise_type>target_action</precise_type>
+        <time_increase>1</time_increase>
+        <scene>street</scene>
+    </element>
+    <element>
+        <code>change_bool</code>
+        <type>action</type>
+        <precise_type>variable_action</precise_type>
+        <time_increase>1</time_increase>
+        <change_type>variable_inverse</change_type>
+        <change_value>None</change_value>
+        <variable>var_bool_1</variable>
+    </element>
+    <element>
+        <code>var_int_1</code>
+        <type>variable</type>
+        <precise_type>int_variable</precise_type>
+        <value>3</value>
+        <value_min>None</value_min>
+        <value_max>None</value_max>
+        <default_increase>1</default_increase>
+    </element>
+    <element>
+        <code>var_bool_1</code>
+        <type>variable</type>
+        <precise_type>bool_variable</precise_type>
+        <value>False</value>
+    </element>
+    <element>
+        <code>con_int_1</code>
+        <type>condition</type>
+        <precise_type>int_condition</precise_type>
+        <test_type>more</test_type>
+        <expected_value>2</expected_value>
+        <variable>var_int_1</variable>
+    </element>
+    <element>
+        <code>con_bool_1</code>
+        <type>condition</type>
+        <precise_type>bool_condition</precise_type>
+        <test_type>equal</test_type>
+        <expected_value>True</expected_value>
+        <variable>var_bool_1</variable>
+    </element>
+    <element>
+        <code>con_multi_1</code>
+        <type>condition</type>
+        <precise_type>multi_condition</precise_type>
+        <test_type>multi_and</test_type>
+        <expected_value>1</expected_value>
+        <condition>con_sub_1</condition>
+        <condition>con_sub_2</condition>
+    </element>
+    <element>
+        <code>con_sub_1</code>
+        <type>condition</type>
+        <precise_type>int_condition</precise_type>
+        <test_type>equal</test_type>
+        <expected_value>3</expected_value>
+        <variable>var_int_1</variable>
+    </element>
+    <element>
+        <code>con_sub_2</code>
+        <type>condition</type>
+        <precise_type>bool_condition</precise_type>
+        <test_type>equal</test_type>
+        <expected_value>True</expected_value>
+        <variable>var_bool_1</variable>
     </element>
     <settings>
-        <scenario_name>Scenariusz testowy.</scenario_name>
         <init_scene>hall</init_scene>
+        <scenario_name>Testowo</scenario_name>
+        <author>Ja</author>
     </settings>
 </scenario>
