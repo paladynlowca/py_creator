@@ -1,5 +1,5 @@
 from tkinter import Frame, Label, Widget, LEFT, Button, E
-from typing import Dict, Optional, List
+from typing import Dict, Optional, List, Union
 
 from tkscrolledframe import ScrolledFrame
 
@@ -14,7 +14,7 @@ from window.tk_settings import lang
 class TkEditorElement(ScrolledFrame):
     class _Property(Frame):
         def __init__(self, _master_: Frame, _name_: str, _value_, _type_: str):
-            super().__init__(master=_master_, width=490, height=35, bg='darkgray')
+            super().__init__(master=_master_, width=700, height=35, bg='darkgray')
             self.master = _master_
             self._name = lang[_name_]
             self._value = 'gen_true' if _value_ is True else 'gen_false' if _value_ is False else _value_
@@ -33,40 +33,46 @@ class TkEditorElement(ScrolledFrame):
         def build(self, _position_):
             self.place(in_=self.master, x=20, y=_position_ + 25)
             self.update()
-            self._container = Frame(master=self, bg='darkgray', borderwidth=1, relief="solid",
-                                    width=self.winfo_width() - 100)
+            self._container = Frame(master=self, bg='darkgray', borderwidth=1, relief="solid", width=600)
             self._name_label = Label(master=self.master, text=self._name, bg='darkgray')
 
             if self._type.startswith(('view', 'text', 'int', 'bool')):
                 if self._value in lang:
-                    self._value = lang[self._value]
+                    self._value: Union[str, Code] = lang[self._value]
                     pass
-                self._value_field = Label(master=self, text=self._value, bg='darkgray', wraplength=365, justify=LEFT)
+                self._value_field = Label(master=self, text=self._value, bg='darkgray', wraplength=565, justify=LEFT)
                 if self._type.endswith('_'):
                     subs = self._type.split('_', 1)
                     self._change = Button(master=self, text=lang['mp_change'])
                     self._change.place(in_=self, anchor=E, rely=0.5, relx=1, width=80)
                 pass
             elif self._type.startswith(('list', 'single')):
-                self._value_field = Frame(master=self, bg='darkgray', width=365, height=25)
+                self._value_field = Frame(master=self, bg='darkgray', width=565, height=25)
                 self._value_field.place(in_=self, y=7, x=13)
                 self._value_field.update()
-                # for item_code in self._value:
-                #     item = Item(self._value_field, item_code)
-                #     item.update()
-                #     self._value_list.append(item)
-                #     pos_x = pos_x + 10 + item.winfo_width()
-                #     item.place(in_=self._value_field, x=pos_x, y=5 + row * 20)
-                #     pass
                 for code in self._value:
                     self._items.append(Item(self._value_field, code))
-                pos_y = self._resize_list()
+                pos_x = 0
+                pos_y = 0
+                for item in self._items:
+                    item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                    item.update()
+                    pos_x += item.winfo_width() + 5
+                    if pos_x > self._value_field.winfo_width() - 20:
+                        item.place_forget()
+                        pos_y += 25
+                        pos_x = 0
+                        item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                        pos_x += item.winfo_width() + 5
+                        pass
+                    pass
                 self._value_field.config(height=25 + pos_y)
-                _position_ += pos_y
+                # _position_ += pos_y
                 self._value_field.place_forget()
                 pass
             elif self._type.startswith('select'):
-                self._value_field = Label(master=self, text=lang[self._value], bg='darkgray', wraplength=365)
+                text = lang[self._value] if self._value is not None else ''
+                self._value_field = Label(master=self, text=text, bg='darkgray', wraplength=365)
                 pass
             if not self._type.startswith('view'):
                 self._change = Button(master=self, text=lang['mp_change'])
@@ -108,45 +114,16 @@ class TkEditorElement(ScrolledFrame):
                 pass
             pass
 
-        def _resize_list(self):
-            pos_x = 0
-            pos_y = 0
-            for item_name in self._value_field.children.copy():
-                self._value_field.children[item_name].place_forget()
-                pass
-            for item in self._items:
-                item.place(in_=self._value_field, x=pos_x, y=pos_y)
-                pos_x += item.winfo_width() + 5
-                if pos_x > self._value_field.winfo_width() - 20:
-                    item.place_forget()
-                    print(self._value_field.winfo_width())
-                    pos_y += 25
-                    pos_x = 0
-                    item.place(in_=self._value_field, x=pos_x, y=pos_y)
-                    pos_x += item.winfo_width() + 5
-                    pass
-                pass
-            return pos_y
-
         def resize(self, _width_: int):
-            self._value_field.update()
-            self.config(width=_width_ - 56, height=self._value_field.winfo_height() + 14)
-            self._container.config(width=_width_ - 156)
-            self._value_field.config(**{'wraplength' if type(self._value_field) is Label else 'width': _width_ - 180})
-            if type(self._value_field) is Frame:
-                self._resize_list()
-                self._value_field.config(height=self._resize_list() + 25)
-                pass
-
             pass
-
         pass
 
     def __init__(self, _master_: Frame, _data_frame_: ElementFrame):
         super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove", scrollbars="vertical")
+        self.place(y=50)
+        self.config(width=730, height=600)
         self._main_frame: Frame = self.display_widget(Frame)
         self._main_frame.config(bg='darkgray')
-        self._master = _master_
         self._data_frame = _data_frame_
         self.code = Code(_data_frame_.code, _data_frame_.type)
         self._end_position = 0
@@ -232,12 +209,7 @@ class TkEditorElement(ScrolledFrame):
         pass
 
     def resize(self):
-        width = self._master.winfo_width()
-        height = self._master.winfo_height()
-        self.config(width=width - 274, height=height - 120)
-        self._main_frame.config(width=width - 274, height=max(height - 120, self._end_position + 10))
-        for element in self._properties:
-            self._properties[element].resize(width - 254)
+        self._main_frame.config(width=730, height=max(600, self._end_position + 10))
         pass
 
     def _build(self):

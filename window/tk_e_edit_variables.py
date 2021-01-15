@@ -2,6 +2,8 @@ from tkinter import Toplevel, Label, Text, Button, SE, N, END, WORD, INSERT, Ent
     Frame, Listbox
 from typing import List
 
+from tkscrolledframe import ScrolledFrame
+
 from constans import *
 from engine.engine_element import Code
 from window.tk_e_item import Item
@@ -163,11 +165,19 @@ class ElementsPopup(EditPopup):
     def _build(self):
         self._label_selected = Label(master=self, text=f'{lang["pu_curr_elements"]}', bg='darkgray')
         self._label_selected.place(in_=self, x=10, y=10)
-        self._frame_selected = Frame(master=self, bg='darkgray', width=485, borderwidth=1, relief="solid")
-        self._frame_selected.place(in_=self, x=10, y=30)
 
-        self._frame_choice = Frame(master=self, bg='darkgray', width=485, borderwidth=1, relief="solid")
+        container = ScrolledFrame(master=self, bg='darkgray', width=465, height=75, borderwidth=1, relief="solid",
+                                  scrollbars="vertical")
+        container.place(in_=self, x=10, y=30)
+        self._frame_selected = container.display_widget(Frame, bg='darkgray', width=465)
+
         self._label_choice = Label(master=self, text=f'{lang["pu_choice_elements"]}', bg='darkgray')
+        self._label_choice.place(in_=self, x=10, y=110)
+
+        container = ScrolledFrame(master=self, bg='darkgray', width=465, height=75, borderwidth=1, relief="solid",
+                                  scrollbars="vertical")
+        container.place(in_=self, x=10, y=130)
+        self._frame_choice = container.display_widget(Frame, bg='darkgray', width=465)
 
         super()._build()
         self._resize()
@@ -198,16 +208,12 @@ class ElementsPopup(EditPopup):
                     pos_x += item.winfo_width() + 5
                     pass
                 pass
-            pos_y += 25
+            pos_y = max(75, pos_y + 25)
             _frame_.config(height=pos_y)
-            return pos_y
+            return
 
-        end_y = build(self._values, self._frame_selected, False)
-        self._label_choice.place_forget()
-        self._label_choice.place(in_=self, x=10, y=end_y + 35)
-        self._frame_choice.place_forget()
+        build(self._values, self._frame_selected, False)
         build(self._options, self._frame_choice, True)
-        self._frame_choice.place(in_=self, x=10, y=end_y + 60)
         pass
 
     def _on_click_decorator(self, _code_: Code, _add_: bool, _single_: bool):

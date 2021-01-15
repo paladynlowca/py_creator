@@ -83,7 +83,12 @@ class Game:
         self._saved = bool(_value_)
         pass
 
+    def element_type(self, _code_: str):
+        return self._elements.check_type(_code_)
+
     def element(self, _code_: Code):
+        if self._elements.check_type(_code_.code) != _code_.type:
+            return None
         frame = self[_code_].element_frame
         frame.add_property('code', _code_.code)
         frame.add_property('type', _code_.type)

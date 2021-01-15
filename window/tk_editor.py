@@ -5,7 +5,6 @@ from typing import Union, Optional
 from engine.engine_main import Game
 from window.tk_e_edit import TkEditorEdit
 from window.tk_e_edit_popup import ScenarioNameAuthorPopup
-from window.tk_e_edit_top import TopMenu
 from window.tk_e_main import TkEditorMain
 from window.tk_settings import register_function, init
 from xml_handler.xml_loader import XMLLoader
@@ -13,7 +12,7 @@ from xml_handler.xml_loader import XMLLoader
 
 class TkEditorFrame(Frame):
     def __init__(self, _master_: Tk):
-        super().__init__(master=_master_, bg='gray')
+        super().__init__(master=_master_, bg='gray', width=1000, height=700)
         init()
         register_function('close_game', self._close_game)
         register_function('new_game', self._build_game)
@@ -25,17 +24,16 @@ class TkEditorFrame(Frame):
 
         self._menu = TkEditorMain(self)
         self._editor = None
-        self._top_menu = None
 
         self._active: Optional[Union[TkEditorMain, TkEditorEdit]] = None
 
-        self._master.bind("<Configure>", self._resize)
+        # self._master.bind("<Configure>", self._resize)
         self._to_menu()
         self._resize(_force_=True)
         pass
 
     def _resize(self, _event_=None, _force_: bool = False):
-
+        return
         if (time_ns() - self._previous_time) < 1000 and not _force_:
             self._previous_time = time_ns()
             return
@@ -93,7 +91,6 @@ class TkEditorFrame(Frame):
                 return
             pass
         self._editor = TkEditorEdit(self, self._game)
-        self._top_menu = TopMenu(self, self._game)
         self._to_editor()
         pass
 
@@ -104,8 +101,6 @@ class TkEditorFrame(Frame):
             del self._game
             self._game = None
             self._editor.destroy()
-            self._top_menu.destroy()
-            self._top_menu = None
             self._editor = None
             pass
         pass

@@ -51,6 +51,7 @@ tm_ask_delete = Na pewno chesz usunąć ten element?
 tm_ask_del_force = Istnieją powiązania z innymi elementami. Czy mimo to chcesz usunąć ten element?
 tm_error_no_element = Nie wybrano elementu!
 tm_value_not_set = Nie wybrano wartości!
+tm_element_already_exist = Element o takim identyfikatorze istnieje!
 
 tm_none_name = Scenariusz nie ma tytułu!
 tm_none_author = Scenariusz nie ma autora!

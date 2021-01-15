@@ -117,8 +117,11 @@ class NewPopup(MenuPopup):
                 (self._type == ACTION and self._sub_type not in ACTION_LIST):
             messagebox.showerror(message=lang['tm_value_not_set'])
             return
-        functions['add_element'](code, self._type, self._sub_type)
-        super()._confirm()
+        if functions['add_element'](code, self._type, self._sub_type):
+            super()._confirm()
+            pass
+        else:
+            messagebox.showerror(message=lang['tm_element_already_exist'])
         pass
 
     pass

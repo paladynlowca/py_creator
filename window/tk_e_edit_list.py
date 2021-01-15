@@ -58,14 +58,8 @@ class TkEditorSideList(Frame):
         self._frames: List[str] = [SCENE, OPTION, ACTION, VARIABLE, CONDITION]
         self._listboxes: Dict[str, MyListBox] = dict()
         self._build()
-        self.resize()
         self.update_data(_codes_, list())
         register_function('get_type_elements', self._get_items)
-        pass
-
-    def resize(self):
-        height = self._master.winfo_height()
-        self._listbox_frame.config(height=height - 90)
         pass
 
     def update_data(self, _data_added_: List[Code], _data_deleted_: List[Code]):
@@ -78,7 +72,7 @@ class TkEditorSideList(Frame):
         pass
 
     def _build(self):
-        self._listbox_frame = Frame(master=self, height=410)
+        self._listbox_frame = Frame(master=self, height=660)
         self._listbox_frame.place(relwidth=1, y=80, anchor=NW)
         for type_ in self._frames:
             self._listboxes[type_] = self._listbox = MyListBox(self._listbox_frame)
@@ -93,7 +87,6 @@ class TkEditorSideList(Frame):
                     self._listbox = self._listboxes[_type_]
                     self._listbox.place(in_=self._listbox_frame, width=235, relheight=1, anchor=SW, relx=0, rely=1)
                     self._type = _type_
-                    self.resize()
                     pass
                 pass
 

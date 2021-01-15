@@ -32,8 +32,10 @@ class Code:
         return self._type
 
     def __eq__(self, _other_):
-        if type(_other_) is Code and self.code == _other_.code and self.type == _other_.type:
+        if type(_other_) is Code and self.code == _other_.code and self.type == _other_.type or \
+                type(_other_) is str and self.code == _other_.code:
             return True
+
         return False
 
     def __hash__(self):

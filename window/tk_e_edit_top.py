@@ -14,12 +14,6 @@ class TopMenu(Frame):
         pass
 
     def resize(self):
-        width = self.master.winfo_width()
-        self.config(width=width)
-        self._new_element.place(anchor=E, rely=0.25, x=width - 5, height=23, width=150)
-        self._del_element.place(anchor=E, rely=0.75, x=width - 5, height=23, width=150)
-        self._scene_default.place(anchor=E, rely=0.25, x=width - 165, height=23, width=150)
-        self._name_author.place(anchor=E, rely=0.75, x=width - 165, height=23, width=150)
         pass
 
     def _build(self):
@@ -34,6 +28,12 @@ class TopMenu(Frame):
         self._save_game.place(anchor=W, rely=0.25, x=5, height=23, width=150)
         self._close_game = Button(self, text=lang['tm_close'], command=self._exit)
         self._close_game.place(anchor=W, rely=0.75, x=5, height=23, width=150)
+
+        self.config(width=1000)
+        self._new_element.place(anchor=E, rely=0.25, x=995, height=23, width=150)
+        self._del_element.place(anchor=E, rely=0.75, x=995, height=23, width=150)
+        self._scene_default.place(anchor=E, rely=0.25, x=835, height=23, width=150)
+        self._name_author.place(anchor=E, rely=0.75, x=835, height=23, width=150)
         pass
 
     def _new(self):

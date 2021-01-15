@@ -45,6 +45,139 @@
         <action>go_entry</action>
     </element>
     <element>
+        <code>to_entry1</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry2</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry3</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry4</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry5</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry6</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry7</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry8</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry9</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry10</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry11</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry12</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry13</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry14</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry15</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry16</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry17</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry19</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
+        <code>to_entry19</code>
+        <type>option</type>
+        <text>Wejdź w drzwi po prawej.</text>
+        <condition>con_multi_1</condition>
+        <action>go_entry</action>
+    </element>
+    <element>
         <code>to_kitchen</code>
         <type>option</type>
         <text>Wejdź w drzwi po lewej.</text>

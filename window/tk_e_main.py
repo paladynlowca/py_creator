@@ -16,6 +16,7 @@ class TkEditorMain(Frame):
         self._build()
         self._get_scenarios()
         self.place()
+        self.resize()
         pass
 
     def place(self):
@@ -24,7 +25,7 @@ class TkEditorMain(Frame):
         pass
 
     def resize(self):
-        self.config(width=500, height=500)
+        self.config(width=700, height=600)
 
     def _build(self):
         self._new_button = Button(master=self, text='Nowy scenariusz', command=self._on_new)
@@ -34,12 +35,12 @@ class TkEditorMain(Frame):
         self._open_button.place(in_=self, width=450, height=40, anchor=N, relx=0.5, y=60)
 
         self._listbox_frame = Frame(master=self, width=170, height=300)
-        self._listbox_frame.place(in_=self, width=450, height=380, anchor=N, relx=0.5, y=110)
+        self._listbox_frame.place(in_=self, width=550, height=480, anchor=N, relx=0.5, y=110)
         self._listbox = Listbox(self)
         self._listbox.bind("<<ListboxSelect>>", self._on_select)
-        self._listbox.place(in_=self._listbox_frame, width=430, height=380, anchor=NW, relx=0)
+        self._listbox.place(in_=self._listbox_frame, width=530, height=480, anchor=NW, relx=0)
         self._scrollbar = Scrollbar(self, orient='vertical', command=self._listbox.yview)
-        self._scrollbar.place(in_=self._listbox_frame, height=360, anchor=NE, relx=1)
+        self._scrollbar.place(in_=self._listbox_frame, height=480, anchor=NE, relx=1)
         self._listbox.config(yscrollcommand=self._scrollbar.set)
         pass
 
