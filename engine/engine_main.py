@@ -14,7 +14,8 @@ class Game:
     """
 
     def __init__(self, _play_only_: bool = True):
-        self._play_only = False
+        self._play_only = _play_only_
+        self._loading = False
         self._scenario_name = None
         self._author = None
         # List of all game elements (scenes, actions, ets).
@@ -28,8 +29,11 @@ class Game:
 
         self.build_element(Code('__time__', VARIABLE), _precise_type_=INT_VARIABLE)
         self.build_element(Code('__game_over__', OPTION))
-        self._play_only = _play_only_
         pass
+
+    @property
+    def play_only(self):
+        return self._play_only and not self.loading
 
     @property
     def name(self):
@@ -37,7 +41,7 @@ class Game:
 
     @name.setter
     def name(self, _value_: str):
-        if self._play_only:
+        if self.play_only:
             return
         self._scenario_name = str(_value_)
         self.saved = False
@@ -49,7 +53,7 @@ class Game:
 
     @author.setter
     def author(self, _value_):
-        if self._play_only:
+        if self.play_only:
             return
         self._author = str(_value_)
         self.saved = False
@@ -82,6 +86,14 @@ class Game:
     def saved(self, _value_):
         self._saved = bool(_value_)
         pass
+
+    @property
+    def loading(self):
+        return self._loading
+
+    @loading.setter
+    def loading(self, value):
+        self._loading = value
 
     def element_type(self, _code_: str):
         return self._elements.check_type(_code_)
@@ -126,7 +138,7 @@ class Game:
         :return: Success of operation.
         :rtype: bool
         """
-        if self._play_only:
+        if self.play_only:
             return False
         if type(_passive_) is str:
             _passive_ = Code(_passive_, self._elements.check_type(_passive_))
@@ -144,7 +156,7 @@ class Game:
         :return: Success of operation.
         :rtype: bool
         """
-        if self._play_only:
+        if self.play_only:
             return False
         self.saved = False
         return self._elements.del_relations(_active_, _passive_)
@@ -166,7 +178,7 @@ class Game:
         pass
 
     def remove_element(self, _code_: Code, _force_: bool = False):
-        if self._play_only:
+        if self.play_only:
             return False
         if _force_:
             self._elements.clear_relations(_code_)

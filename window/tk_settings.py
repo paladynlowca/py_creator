@@ -1,3 +1,5 @@
+from os import makedirs
+from os.path import isdir
 from typing import Dict
 
 from exceptions import *
@@ -35,11 +37,15 @@ def register_function(name: str, _function_: callable):
 
 
 def load_texts(_lang_: str):
+    if not isdir('lang'):
+        makedirs('lang')
     lang.update(parse_file(f'lang/{_lang_}.txt'))
     pass
 
 
-def init():
+def init(_type_: str):
     settings.update(parse_file('config.ini'))
-    load_texts(settings['lang'])
+    if not isdir('lang'):
+        makedirs('lang')
+    lang.update(parse_file(f'lang/{settings["lang"] + _type_}.txt'))
     pass

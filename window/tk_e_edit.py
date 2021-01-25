@@ -4,9 +4,9 @@ from typing import Optional
 from data_frame import ElementFrame
 from engine.engine_element import Code, ElementNotSet
 from engine.engine_main import Game
-from window.tk_e_edit_list import TkEditorSideList
-from window.tk_e_edit_main import TkEditorElement
-from window.tk_e_edit_top import TopMenu
+from window.tk_e_list import TkEditorSideList
+from window.tk_e_main import TkEditorElement
+from window.tk_e_top import TkEditorTopMenu
 from window.tk_settings import register_function
 
 
@@ -46,7 +46,7 @@ class TkEditorEdit(Frame):
         self._side_list = TkEditorSideList(self, self._game.elements(), self._change_element)
         self._side_list.place(in_=self, anchor=NE, relx=1, y=50, width=250, height=650)
 
-        self._top_menu = TopMenu(self, self._game)
+        self._top_menu = TkEditorTopMenu(self, self._game)
         pass
 
     def _change_element(self, _data_frame_: Optional[ElementFrame]):

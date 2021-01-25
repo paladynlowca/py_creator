@@ -1,87 +1,227 @@
-import re
-from os import listdir
-from os.path import isfile
-from tkinter import Frame, N, Button, Listbox, Scrollbar, NE, NW, DISABLED, NORMAL
+from tkinter import Frame, Label, Widget, LEFT, Button, E
+from typing import Dict, Optional, List, Union
 
-from window.tk_settings import functions
+from tkscrolledframe import ScrolledFrame
+
+from constans import *
+from data_frame import ElementFrame
+from engine.engine_element import Code
+from window.tk_e_variables import TkEditorTextPopup, TkEditorIntPopup, TkEditorBoolPopup, TkEditorSinglePopup, TkEditorMultiPopup, TkEditorSelectPopup
+from window.tk_e_item import Item
+from window.tk_settings import lang
 
 
-class TkEditorMain(Frame):
-    def __init__(self, _master_: Frame):
-        super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove")
-        self._master = _master_
-        self._scenarios_path = 'scenarios/'
-        self._open_function = functions['new_game']
+class TkEditorElement(ScrolledFrame):
+    class _Property(Frame):
+        def __init__(self, _master_: Frame, _name_: str, _value_, _type_: str):
+            super().__init__(master=_master_, width=700, height=35, bg='darkgray')
+            self.master = _master_
+            self._name = lang[_name_]
+            self._value = 'gen_true' if _value_ is True else 'gen_false' if _value_ is False else _value_
+            self._type = _type_
 
-        self._build()
-        self._get_scenarios()
-        self.place()
-        self.resize()
+            self._container: Optional[Frame] = None
+            self._name_label: Optional[Label] = None
+            self._value_field: Optional[Label, Frame] = None
+            self._value_list: List[Item] = list()
+            self._input_field: Optional[Widget] = None
+            self._change: Optional[Button] = None
+            self._list_end = 0
+            self._items = list()
+            pass
+
+        def build(self, _position_):
+            self.place(in_=self.master, x=20, y=_position_ + 25)
+            self.update()
+            self._container = Frame(master=self, bg='darkgray', borderwidth=1, relief="solid", width=600)
+            self._name_label = Label(master=self.master, text=self._name, bg='darkgray')
+
+            if self._type.startswith(('view', 'text', 'int', 'bool')):
+                if self._value in lang:
+                    self._value: Union[str, Code] = lang[self._value]
+                    pass
+                self._value_field = Label(master=self, text=self._value, bg='darkgray', wraplength=565, justify=LEFT)
+                if self._type.endswith('_'):
+                    subs = self._type.split('_', 1)
+                    self._change = Button(master=self, text=lang['mp_change'])
+                    self._change.place(in_=self, anchor=E, rely=0.5, relx=1, width=80)
+                pass
+            elif self._type.startswith(('list', 'single')):
+                self._value_field = Frame(master=self, bg='darkgray', width=565, height=25)
+                self._value_field.place(in_=self, y=7, x=13)
+                self._value_field.update()
+                for code in self._value:
+                    self._items.append(Item(self._value_field, code))
+                pos_x = 0
+                pos_y = 0
+                for item in self._items:
+                    item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                    item.update()
+                    pos_x += item.winfo_width() + 5
+                    if pos_x > self._value_field.winfo_width() - 20:
+                        item.place_forget()
+                        pos_y += 25
+                        pos_x = 0
+                        item.place(in_=self._value_field, x=pos_x, y=pos_y)
+                        pos_x += item.winfo_width() + 5
+                        pass
+                    pass
+                self._value_field.config(height=25 + pos_y)
+                # _position_ += pos_y
+                self._value_field.place_forget()
+                pass
+            elif self._type.startswith('select'):
+                text = lang[self._value] if self._value is not None else ''
+                self._value_field = Label(master=self, text=text, bg='darkgray', wraplength=365)
+                pass
+            if not self._type.startswith('view'):
+                self._change = Button(master=self, text=lang['mp_change'])
+                self._change.place(in_=self, anchor=E, rely=0.5, relx=1, width=80)
+                pass
+
+            self._container.place(in_=self, relheight=1)
+            self._name_label.place(in_=self, y=-15, x=5)
+            self._value_field.place(in_=self, y=7, x=13)
+            self._value_field.update()
+            height = self._value_field.winfo_height() + 14
+            self.config(height=height)
+            return height + 25 + _position_
+
+        def bind_button(self, _code_: Code, _value_):
+            def create_popup(_event_):
+                if self._type.startswith('text'):
+                    TkEditorTextPopup(_code_, self._type[self._type.find('_') + 1:], _value_)
+                    pass
+                elif self._type.startswith('int'):
+                    TkEditorIntPopup(_code_, self._type[self._type.find('_') + 1:], _value_)
+                    pass
+                elif self._type.startswith('bool'):
+                    TkEditorBoolPopup(_code_, self._type[self._type.find('_') + 1:], _value_)
+                    pass
+                elif self._type.startswith('single'):
+                    TkEditorSinglePopup(_code_, self._type[self._type.find('_') + 1:], _value_)
+                    pass
+                elif self._type.startswith('list'):
+                    TkEditorMultiPopup(_code_, self._type[self._type.find('_') + 1:], _value_)
+                    pass
+                elif self._type.startswith('select'):
+                    TkEditorSelectPopup(_code_, self._type[self._type.find('_') + 1:], _value_, self._name)
+                    pass
+                pass
+
+            if self._change is not None:
+                self._change.bind("<Button-1>", create_popup)
+                pass
+            pass
+
+        def resize(self, _width_: int):
+            pass
         pass
 
-    def place(self):
-        self._master.update()
-        super().place(in_=self._master, anchor=N, relx=0.5, y=50)
+    def __init__(self, _master_: Frame, _data_frame_: ElementFrame):
+        super().__init__(master=_master_, bg='darkgray', borderwidth=2, relief="groove", scrollbars="vertical")
+        self.place(y=50)
+        self.config(width=730, height=600)
+        self._main_frame: Frame = self.display_widget(Frame)
+        self._main_frame.config(bg='darkgray')
+        self._data_frame = _data_frame_
+        self.code = Code(_data_frame_.code, _data_frame_.type)
+        self._end_position = 0
+        self._properties: Dict[str, TkEditorElement._Property] = dict()
+        self._fields: list = [('mp_id', self._data_frame.code, 'view'),
+                              ('mp_type', self._data_frame.type, 'view')]
+        self._type = self._data_frame.type
+        self._fields_build()
+        self._build()
+        pass
+
+    def _fields_build(self):
+        while None in self._data_frame.relations:
+            self._data_frame.relations.remove(None)
+            pass
+        if self._type == SCENE:
+            self._fields.extend([('mp_title', self._data_frame.properties['_title_'], 'text__title_'),
+                                 ('mp_desc', self._data_frame.properties['_description_'], 'text__description_'),
+                                 ('mp_options', [option for option in self._data_frame.relations if
+                                                 option.type == OPTION], 'list_' + OPTION)])
+            pass
+        elif self._type == OPTION:
+            self._fields.extend([('mp_text', self._data_frame.properties['_text_'], 'text__text_'),
+                                 ('mp_actions', [action for action in self._data_frame.relations if
+                                                 action.type == ACTION], 'list_' + ACTION),
+                                 ('mp_conditions', [condition for condition in self._data_frame.relations if
+                                                    condition.type == CONDITION], 'list_' + CONDITION)])
+            pass
+        elif self._type == ACTION:
+            self._fields.extend([('mp_sub_type', self._data_frame.properties['_precise_type_'], 'view'),
+                                 ('mp_time_increase', self._data_frame.properties['_time_increase_'],
+                                  'int__time_increase_'),
+                                 ('mp_conditions', [condition for condition in self._data_frame.relations if
+                                                    condition.type == CONDITION], 'list_' + CONDITION)])
+            if self._data_frame.properties['_precise_type_'] == TARGET_ACTION:
+                self._fields.append(('mp_scene', [scene for scene in self._data_frame.relations
+                                                  if scene.type == SCENE], 'single_' + SCENE))
+                pass
+            elif self._data_frame.properties['_precise_type_'] == VARIABLE_ACTION:
+                type_ = 'int' if self._data_frame.properties['_precise_type_'] == INT_VARIABLE else 'bool'
+                self._fields.extend([('mp_change_type', self._data_frame.properties['_change_type_'],
+                                      f'select_{type_}__change_type_'),
+                                     ('mp_change_value', self._data_frame.properties['_change_value_'],
+                                      f'{type_}__change_value_'),
+                                     ('mp_variable', [variable for variable in self._data_frame.relations if
+                                                      variable.type == VARIABLE], 'single_' + VARIABLE)])
+                pass
+            pass
+        elif self._type == CONDITION:
+            type_str = self._data_frame.properties['_precise_type_']
+            type_ = 'int' if type_str == INT_CONDITION else 'bool' if type_str == BOOL_CONDITION else 'choose'
+            self._fields.extend([('mp_sub_type', self._data_frame.properties['_precise_type_'], 'view'),
+                                 ('mp_test_type_', self._data_frame.properties['_test_type_'],
+                                  f'select_{type_}__test_type_')])
+            if type_ == 'choose':
+                self._fields.extend([('mp_conditions', [condition for condition in self._data_frame.relations if
+                                                        condition.type == CONDITION], 'list_' + CONDITION)])
+                pass
+            else:
+                self._fields.extend([('mp_expected_value_', self._data_frame.properties['_expected_value_'],
+                                      f'{type_}__expected_value_'),
+                                     ('mp_variable', [variable for variable in self._data_frame.relations if
+                                                      variable.type == VARIABLE], 'single_' + VARIABLE)])
+                pass
+            pass
+        elif self._type == VARIABLE:
+            type_str = self._data_frame.properties['_precise_type_']
+            type_ = 'int' if type_str == INT_CONDITION else 'bool'
+            self._fields.extend([('mp_sub_type', self._data_frame.properties['_precise_type_'], 'view'),
+                                 ('mp_value', self._data_frame.properties['_value_'], f'{type_}__value_'),
+                                 ('mp_conditions', [condition for condition in self._data_frame.relations if
+                                                    condition.type == CONDITION], 'list_' + CONDITION),
+                                 ('mp_actions', [action for action in self._data_frame.relations if
+                                                 action.type == ACTION], 'list_' + ACTION)])
+            if type_ == 'int':
+                self._fields.extend([('mp_default_increase', self._data_frame.properties['_value_'],
+                                      f'{type_}__value_'),
+                                     ('mp_min', self._data_frame.properties['_min_'], f'{type_}__min_'),
+                                     ('mp_max', self._data_frame.properties['_max_'], f'{type_}__max_')])
+                pass
+            pass
+
         pass
 
     def resize(self):
-        self.config(width=700, height=600)
+        self._main_frame.config(width=730, height=max(600, self._end_position + 10))
+        pass
 
     def _build(self):
-        self._new_button = Button(master=self, text='Nowy scenariusz', command=self._on_new)
-        self._new_button.place(in_=self, width=450, height=40, anchor=N, relx=0.5, y=10)
-
-        self._open_button = Button(master=self, text='Otwórz scenariusz', command=self._on_open, state=DISABLED)
-        self._open_button.place(in_=self, width=450, height=40, anchor=N, relx=0.5, y=60)
-
-        self._listbox_frame = Frame(master=self, width=170, height=300)
-        self._listbox_frame.place(in_=self, width=550, height=480, anchor=N, relx=0.5, y=110)
-        self._listbox = Listbox(self)
-        self._listbox.bind("<<ListboxSelect>>", self._on_select)
-        self._listbox.place(in_=self._listbox_frame, width=530, height=480, anchor=NW, relx=0)
-        self._scrollbar = Scrollbar(self, orient='vertical', command=self._listbox.yview)
-        self._scrollbar.place(in_=self._listbox_frame, height=480, anchor=NE, relx=1)
-        self._listbox.config(yscrollcommand=self._scrollbar.set)
-        pass
-
-    def _get_scenarios(self):
-        self._scenarios = list()
-        for file_name in listdir(self._scenarios_path):
-            if not isfile(self._scenarios_path + file_name):
+        for property_ in self._fields:
+            if property_[0] == 'mp_change_value' and self._data_frame.properties['_change_type_'] == 'variable_inverse':
                 continue
-            with open(self._scenarios_path + file_name, 'r') as file:
-                line = file.readline(100)
-                found = re.search(r'name="(.*?)"', line)
-                if found:
-                    self._scenarios.append(file_name[0:len(file_name) - 4])
-                    self._listbox.insert('end', f'{found.group(1)} ({file_name})')
-                pass
+            self._properties[property_[0]] = self._Property(self._main_frame, *property_)
             pass
-        pass
-
-    def _on_new(self, _event_=None):
-        self._open_function(None)
-        pass
-
-    def _on_open(self, _event_=None):
-        if self._listbox.curselection():
-            file_path = self._scenarios[self._listbox.curselection()[0]]
-            if isfile(f'{self._scenarios_path}{file_path}.xml'):
-                self._open_function(file_path)
-                pass
-            else:
-                self._open_button.config(state=DISABLED)
-                self._listbox.delete(self._listbox.curselection())
-            pass
-        pass
-
-    def _on_select(self, _event_=None):
-        if self._listbox.curselection():
-            self._open_button.config(state=NORMAL)
-            pass
-        else:
-            self._open_button.config(state=DISABLED)
-            pass
+        for element in self._properties:
+            self._end_position = self._properties[element].build(self._end_position)
+            code = Code(self._data_frame.code, self._type)
+            self._properties[element].bind_button(code, self._properties[element]._value)
         pass
 
     pass

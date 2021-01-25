@@ -22,6 +22,7 @@ class XMLLoader:
         pass
 
     def load(self):
+        self._game.loading = True
         if 'format' not in self._root.attrib or self._root.attrib['format'] != self._format:
             print('wrong data type')
             return False
@@ -57,6 +58,7 @@ class XMLLoader:
         if init_scene is not None:
             self._game.change_scene(Code(init_scene.text, SCENE))
             pass
+        self._game.loading = False
         pass
 
     pass
